@@ -53,7 +53,7 @@ RSpec.describe QuestionsController, type: :controller do
       end
     end
 
-    context 'with in valid attributes' do
+    context 'with invalid attributes' do
       it 'doesn not save the question' do
         expect { post :create, params: { question: attributes_for(:question, :invalid) } }.to_not change(Question, :count)
       end
@@ -112,6 +112,7 @@ RSpec.describe QuestionsController, type: :controller do
 
     it 'redirects to index' do
       delete :destroy, params: { id: question }
+
       expect(response).to redirect_to questions_path
     end
   end
