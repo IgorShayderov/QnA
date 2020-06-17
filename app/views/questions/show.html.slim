@@ -2,9 +2,7 @@ h1 = @question.title
 p = @question.body
 
 ol
-  / = render question.answers
-  - @question.answers.each do |answer|
-    li = answer.body
+  = render @question.answers
 
 = render 'answers/form', answer: @question.answers.new
 - if current_user == @question.author

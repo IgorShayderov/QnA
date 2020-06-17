@@ -11,18 +11,13 @@ feature 'Author can delete his begotten questions', %q{
   given!(:question) { create(:question, author: user) }
 
   describe 'User tries to delete' do
-    background do
-      FactoryBot.create_list(:question, 3, author: user)
-    end
-
     scenario 'his begotten question' do
       sign_in(user)
       visit question_path(question)
 
       click_on 'Delete question'
 
-      expect(page).to_not have_content question.title
-      expect(page).to have_content('QuestionTitle', count: 3)
+      expect(page).to_not have_content('QuestionTitle')
     end
 
     scenario 'foreign question' do
