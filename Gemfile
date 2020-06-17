@@ -29,6 +29,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.2', require: false
 # For views, instead of ERB
 gem 'slim-rails'
+gem 'slim_lint'
 # Authentication
 gem 'devise'
 

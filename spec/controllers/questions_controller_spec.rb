@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
   let(:question) { create(:question) }
+  let(:user) { create(:user) }
+  before { login(user) }
 
   describe 'GET #index' do
     let(:questions) { create_list(:question, 3) }
@@ -87,13 +89,14 @@ RSpec.describe QuestionsController, type: :controller do
 
     context 'with invalid attributes' do
       before { patch :update, params: { id: question, question: attributes_for(:question, :invalid) } }
+      let!(:question_before_update) { question }
 
       it 'does not change question' do
         patch :update, params: { id: question, question: attributes_for(:question, :invalid) }
         question.reload
 
-        expect(question.title).to eq 'MyString'
-        expect(question.body).to eq 'MyText'
+        expect(question.title).to eq question_before_update.title
+        expect(question.body).to eq question_before_update.body
       end
       it 're-renders edit view' do
         patch :update, params: { id: question, question: attributes_for(:question, :invalid) }
