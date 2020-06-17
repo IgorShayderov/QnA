@@ -6,8 +6,9 @@ feature 'User can view question and related answers', %q{
   I'd like to be able to see the question and related answers
 } do
 
-  given!(:question) { create(:question) }
-  given!(:answer) { create(:answer, question: question) }
+  given(:user) { create(:user) }
+  given!(:answer) { create(:answer, question: question, author: user) }
+  given!(:question) { create(:question, author: user) }
 
   scenario 'Anyone can view certain question' do
     visit question_path(question)

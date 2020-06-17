@@ -1,8 +1,8 @@
 - if user_signed_in?
-  nav class="navbar navbar-light"
-    span class="navbar-brand"
+  nav
+    span
       = link_to "Root", root_path
 
-    p class="navbar-text welcome-message"
+    p
       = "Welcome #{current_user.email}"
       = link_to 'Sign out', destroy_user_session_path, method: :delete

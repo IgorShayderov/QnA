@@ -6,8 +6,10 @@ feature 'User can view questions list', %q{
   I'd like to be able to see questions list
 } do
 
+  given(:user) { create(:user) }
+
   scenario 'Anyone can view questions list' do
-    FactoryBot.create_list(:question, 3)
+    FactoryBot.create_list(:question, 3, author: user)
     visit root_path
 
     expect(page).to have_content('QuestionTitle', count: 3)

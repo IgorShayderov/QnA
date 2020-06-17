@@ -7,3 +7,8 @@ ol
     li = answer.body
 
 = render 'answers/form', answer: @question.answers.new
+- if current_user == @question.author
+  = link_to "Delete question",
+                  question_path(@question),
+                  method: :delete,
+                  data:  { confirm: "Are you sure?" }
