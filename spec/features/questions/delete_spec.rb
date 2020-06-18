@@ -10,21 +10,31 @@ feature 'Author can delete his begotten questions', %q{
   given(:other_user) { create(:user) }
   given!(:question) { create(:question, author: user) }
 
-  describe 'User tries to delete' do
-    scenario 'his begotten question' do
-      sign_in(user)
-      visit question_path(question)
+  describe 'Trying to delete question' do
+    context 'as authenticated User' do
+      it 'his begotten question' do
+        sign_in(user)
+        visit question_path(question)
 
-      click_on 'Delete question'
+        click_on 'Delete question'
 
-      expect(page).to_not have_content('QuestionTitle')
+        expect(page).to_not have_content('QuestionTitle')
+      end
+
+      it 'foreign question' do
+        sign_in(other_user)
+        visit question_path(question)
+
+        expect(page).to_not have_content 'Delete question'
+      end
     end
 
-    scenario 'foreign question' do
-      sign_in(other_user)
-      visit question_path(question)
+    context 'as unauthenticated User' do
+      it 'whatever answer' do
+        visit question_path(question)
 
-      expect(page).to_not have_content 'Delete question'
+        expect(page).to_not have_content 'Delete question'
+      end
     end
 
   end

@@ -1,7 +1,7 @@
 class AnswersController < ApplicationController
+  before_action :authenticate_user!
   before_action :get_question, only: %i[create]
   before_action :get_answer, only: %i[edit update destroy]
-  before_action :authenticate_user!, only: %i[create update destroy]
 
   def create
     @answer = @question.answers.new(answer_params.merge(author: current_user))
@@ -22,8 +22,10 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    @answer.destroy
-    redirect_to @answer.question
+    if current_user.author_of?(@answer)
+      @answer.destroy 
+      redirect_to @answer.question
+    end
   end
 
   private
