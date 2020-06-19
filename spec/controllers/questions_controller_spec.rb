@@ -57,7 +57,7 @@ RSpec.describe QuestionsController, type: :controller do
       end
 
       it 'belongs to the user who has created it' do
-        expect(Question.last.user_id).to be user.id
+        expect(assigns(:question).user_id).to be user.id
       end
     end
 
