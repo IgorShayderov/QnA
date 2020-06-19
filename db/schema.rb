@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2020_06_17_200835) do
     t.text "body"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "user_id", null: false
+    t.integer "user_id", null: false
     t.index ["question_id"], name: "index_answers_on_question_id"
   end
 
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 2020_06_17_200835) do
     t.text "body"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "user_id", null: false
+    t.integer "user_id", null: false
   end
 
   create_table "users", force: :cascade do |t|
