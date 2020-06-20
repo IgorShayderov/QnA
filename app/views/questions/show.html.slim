@@ -1,7 +1,7 @@
 h1 = @question.title
 p = @question.body
 
-ol
+ol.answers
   = render @question.answers
 
 = render 'answers/form', answer: @question.answers.new

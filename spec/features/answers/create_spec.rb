@@ -19,7 +19,10 @@ feature 'User can create answer to question', %q{
       fill_in 'Your answer', with: 'My answer'
       click_on 'Answer the question'
 
-      expect(page).to have_content 'My answer'
+      expect(current_path).to eq question_path(question)
+      within '.answers' do
+        expect(page).to have_content 'My answer'
+      end
     end
 
     scenario 'User create invalid answer' do
