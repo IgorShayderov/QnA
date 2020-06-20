@@ -4,21 +4,12 @@ class AnswersController < ApplicationController
   before_action :get_answer, only: %i[edit update destroy]
 
   def create
-    @answer = @question.answers.new(answer_params.merge(author: current_user))
-
-    if @answer.save
-      redirect_to @question
-    else
-      render 'questions/show'
-    end
+    @answer = @question.answers.create(answer_params.merge(author: current_user))
   end
 
   def update
-    if @answer.update(answer_params)
-      redirect_to @answer
-    else
-      render 'questions/show'
-    end
+    @answer.update(answer_params)
+    @question = @answer.question
   end
 
   def destroy

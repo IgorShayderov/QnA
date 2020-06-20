@@ -3,7 +3,7 @@ require 'rails_helper'
 feature 'Author can delete his begotten answers', %q{
   In order to delete my begotten answers
   As an authenticated User
-  I'd like to be able to delete answers
+  I'd like to be able to delete my answers
 } do
 
   given(:user) { create(:user) }
