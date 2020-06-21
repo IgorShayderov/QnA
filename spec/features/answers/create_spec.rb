@@ -16,7 +16,7 @@ feature 'User can create answer to question', %q{
     end
 
     scenario 'User create answer' do
-      fill_in 'Your answer', with: 'My answer'
+      fill_in 'Your answer', with: 'Your answer'
       click_on 'Answer the question'
 
       expect(current_path).to eq question_path(question)

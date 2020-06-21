@@ -9,12 +9,13 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="ml-1">
     <header>
       <%= render 'shared/nav' %>
       <%= render 'shared/flash' %>
     </header>
-
-    <%= yield %>
+    <main>
+      <%= yield %>
+    </main>
   </body>
 </html>

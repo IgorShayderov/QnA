@@ -1,5 +1,14 @@
 $('.answer-errors').html('<%= render 'shared/errors', resource: @answer %>');
 
 <% if !@answer.errors.present? %>
-  $('.answers').html('<%= j render @question.answers %>');
+  if (typeof answerId === undefined) {
+    const answerId = '<%= @answer.id %>';
+    const $answerBodyText = $(`[data-answer-id=${answerId}]`);
+  } else {
+    answerId = '<%= @answer.id %>';
+  }
+
+  $(`[data-answer-id=${answerId}] .answer-body`).text('<%= @answer.body %>');
+  $(`[data-answer-id=${answerId}] .edit-answer-link`).show();
+  $(`form#edit-answer-${answerId}`).addClass('hidden');
 <% end %>
