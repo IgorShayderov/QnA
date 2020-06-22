@@ -1,0 +1,15 @@
+$('.question-errors').html('<%= render 'shared/errors', resource: @question %>');
+
+<% if !@question.errors.present? %>
+  questionTitle = document.querySelector('.question-title');
+  questionBody = document.querySelector('.question-body');
+
+  questionTitle.innerHTML = '<%= @question.title %>';
+  questionBody.innerHTML = '<%= @question.body %>';
+
+  editQuestionLink = document.querySelector('.edit-question-link');
+  editQuestionForm = document.querySelector('.edit-question-form');
+
+  editQuestionLink.classList.remove('hidden');
+  editQuestionForm.classList.add('hidden');
+<% end %>

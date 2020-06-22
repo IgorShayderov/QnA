@@ -1,12 +1,8 @@
 $('.answer-errors').html('<%= render 'shared/errors', resource: @answer %>');
 
 <% if !@answer.errors.present? %>
-  if (typeof answerId === undefined) {
-    const answerId = '<%= @answer.id %>';
-    const $answerBodyText = $(`[data-answer-id=${answerId}]`);
-  } else {
-    answerId = '<%= @answer.id %>';
-  }
+  answerId = '<%= @answer.id %>';
+  $answerBodyText = $(`[data-answer-id=${answerId}]`);
 
   $(`[data-answer-id=${answerId}] .answer-body`).text('<%= @answer.body %>');
   $(`[data-answer-id=${answerId}] .edit-answer-link`).show();

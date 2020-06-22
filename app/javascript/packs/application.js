@@ -17,3 +17,4 @@ require('jquery')
 // const imagePath = (name) => images(name, true)
 
 require('utilities/answers');
+require('utilities/questions');

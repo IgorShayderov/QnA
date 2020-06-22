@@ -1,6 +1,3 @@
-.answer-errors
-  = render 'shared/errors', resource: @answer
-
 = form_with model: [@question, answer] do |form|
 
   = form.label :body, 'New answer:'
