@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class AnswersController < ApplicationController
   before_action :authenticate_user!
   before_action :get_question, only: %i[create]
-  before_action :get_answer, only: %i[edit update destroy]
+  before_action :get_answer, only: %i[edit update destroy best]
 
   def create
     @answer = @question.answers.create(answer_params.merge(author: current_user))
@@ -13,7 +15,12 @@ class AnswersController < ApplicationController
 
   def destroy
     @answer.destroy if current_user.author_of?(@answer)
-    redirect_to @answer.question
+  end
+
+  def best
+    return if answer_already_best?
+    @answer.unbest_answers
+    @answer.update(best_answer_params) if current_user.author_of?(@answer.question)
   end
 
   private
@@ -28,5 +35,13 @@ class AnswersController < ApplicationController
 
   def answer_params
     params.require(:answer).permit(:body)
+  end
+
+  def best_answer_params
+    params.require(:answer).permit(:best)
+  end
+
+  def answer_already_best?
+    @answer.best
   end
 end

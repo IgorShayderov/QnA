@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
@@ -32,7 +34,7 @@ RSpec.describe AnswersController, type: :controller do
 
       it 'renders create template' do
         post :create, params: { answer: attributes_for(:answer, :invalid), question_id: question, format: :js }
-        
+
         expect(response).to render_template :create
       end
     end
@@ -70,7 +72,7 @@ RSpec.describe AnswersController, type: :controller do
       end
       it 'renders update template' do
         patch :update, params: { id: answer, answer: attributes_for(:answer, :invalid), format: :js }
-        
+
         expect(response).to render_template :update
       end
     end
@@ -79,29 +81,29 @@ RSpec.describe AnswersController, type: :controller do
   describe 'DELETE #destroy' do
     let!(:answer) { create(:answer, question: question, author: user) }
     let!(:other_user) { create(:user) }
-    let!(:other_answer) { create(:answer, question: question, author: other_user )}
+    let!(:other_answer) { create(:answer, question: question, author: other_user) }
 
     context 'Author of element' do
       it 'deletes the answer' do
-        expect { delete :destroy, params: { id: answer, question_id: question } }.to change(Answer, :count).by(-1)
+        expect { delete :destroy, params: { id: answer, question_id: question }, format: :js }.to change(Answer, :count).by(-1)
       end
 
-      it 'redirects to index' do
-        delete :destroy, params: { id: answer, question_id: question }
+      it 'renders destroy template' do
+        delete :destroy, params: { id: answer, question_id: question }, format: :js
 
-        expect(response).to redirect_to question
+        expect(response).to render_template :destroy
       end
     end
 
     context 'User who is not author of an element' do
       it 'tries to delete question' do
-        expect { delete :destroy, params: { id: other_answer, question_id: question } }.to_not change(Answer, :count)
+        expect { delete :destroy, params: { id: other_answer, question_id: question }, format: :js }.to_not change(Answer, :count)
       end
 
-      it 'redirects to index' do
-        delete :destroy, params: { id: other_answer, question_id: question }
+      it 'renders destroy template' do
+        delete :destroy, params: { id: other_answer, question_id: question }, format: :js
 
-        expect(response).to redirect_to question_path(question)
+        expect(response).to render_template :destroy
       end
     end
   end

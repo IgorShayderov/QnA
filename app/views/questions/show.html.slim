@@ -27,7 +27,7 @@
   = render 'shared/errors', resource: @answer
 
 ul.answers
-  = render @question.answers
+  = render @question.sorted_answers
 
 .new-answer
   = render 'answers/form', answer: @question.answers.new
