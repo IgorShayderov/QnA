@@ -6,7 +6,18 @@ class Answer < ApplicationRecord
 
   validates :body, presence: true
 
-  def unbest_answers
-    question.answers.each{|answer| answer.update_attribute(:best, false)}
+  scope :sorted_answers, ->(question) { where(question: question).order(best: :desc, created_at: :desc) }
+
+  def make_best(params)
+    process_best_answer(params) if !best?
+  end
+
+  private
+
+  def process_best_answer(params)
+    Answer.transaction do
+      question.answers.where(best: true).update_all(best: false)
+      update(params)
+    end
   end
 end

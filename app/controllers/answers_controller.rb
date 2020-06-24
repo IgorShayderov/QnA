@@ -18,9 +18,7 @@ class AnswersController < ApplicationController
   end
 
   def best
-    return if answer_already_best?
-    @answer.unbest_answers
-    @answer.update(best_answer_params) if current_user.author_of?(@answer.question)
+    @answer.make_best(best_answer_params) if current_user.author_of?(@answer.question)
   end
 
   private
@@ -39,9 +37,5 @@ class AnswersController < ApplicationController
 
   def best_answer_params
     params.require(:answer).permit(:best)
-  end
-
-  def answer_already_best?
-    @answer.best
   end
 end

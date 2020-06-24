@@ -65,7 +65,7 @@ feature 'Author can choose best answers', "
 
     scenario 'Best answer must be first in answers list' do
       sign_in(user)
-      FactoryBot.create_list(:answer, 3, question: question, author: user)
+      create_list(:answer, 3, question: question, author: user)
       visit question_path(question)
 
       within answer_tag do
