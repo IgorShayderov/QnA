@@ -7,6 +7,6 @@ class Answer < ApplicationRecord
   validates :body, presence: true
 
   def unbest_answers
-    question.answers.all.each{|answer| answer.update_attribute(:best, false)}
+    question.answers.each{|answer| answer.update_attribute(:best, false)}
   end
 end
