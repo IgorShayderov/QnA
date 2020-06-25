@@ -64,4 +64,5 @@ group :test do
   gem 'rails-controller-testing'
   gem 'shoulda-matchers'
   gem 'webdrivers'
+  gem "aws-sdk-s3", require: false
 end

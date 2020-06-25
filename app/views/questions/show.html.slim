@@ -32,8 +32,7 @@
   = render 'shared/errors', resource: @answer
 
 ul.answers
-  = render Answer.sorted_answers(@question)
+  = render Answer.with_attached_files.sorted_answers(@question)
 
 .new-answer
   = render 'answers/form', answer: @question.answers.new
-

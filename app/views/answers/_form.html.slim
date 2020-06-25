@@ -4,4 +4,8 @@
   br
   = form.text_area :body, cols: 40
   br
-  = form.submit 'Answer the question'
+  = form.label :files
+  br
+  = form.file_field :files, multiple: true
+  br
+  = form.submit 'Answer the question', class: 'mt-2 btn btn-primary'

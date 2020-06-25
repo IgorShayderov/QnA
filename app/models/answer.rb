@@ -4,9 +4,11 @@ class Answer < ApplicationRecord
   belongs_to :question
   belongs_to :author, class_name: 'User', foreign_key: 'user_id'
 
+  has_many_attached :files
+
   validates :body, presence: true
 
-  scope :sorted_answers, ->(question) { where(question: question).order(best: :desc, created_at: :desc) }
+  scope :sorted_answers, ->(question) { where(question: question).order(best: :desc, created_at: :asc) }
 
   def make_best(params)
     process_best_answer(params) if !best?
