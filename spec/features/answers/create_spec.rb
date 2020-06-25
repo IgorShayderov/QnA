@@ -16,7 +16,7 @@ feature 'User can create answer to question', "
       visit question_path(question)
     end
 
-    scenario 'User create answer' do
+    scenario 'create answer' do
       fill_in 'New answer', with: 'My answer'
       click_on 'Answer the question'
 
@@ -26,7 +26,7 @@ feature 'User can create answer to question', "
       end
     end
 
-    scenario 'User create invalid answer' do
+    scenario 'create invalid answer' do
       click_on 'Answer the question'
 
       expect(page).to have_content "Body can't be blank"
