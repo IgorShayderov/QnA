@@ -14,15 +14,15 @@ RSpec.describe Answer, type: :model do
 
   describe 'make_best method' do
     it "make 'best' attribute true for certain answer" do
-      answer.make_best({best: true})
+      answer.make_best
 
-      expect(answer.best?).to eq true
+      expect(answer).to be_best
     end
 
     it "make 'best' attribute falsy for other answers" do
       create_list(:answer, 3, question: question, author: user, best: true)
 
-      answer.make_best({best: true})
+      answer.make_best
 
       expect(question.answers.where.not(id: answer)).to all(have_attributes(best: false))
     end
