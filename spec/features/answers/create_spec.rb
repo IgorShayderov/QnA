@@ -1,25 +1,29 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-feature 'User can create answer to question', %q{
+feature 'User can create answer to question', "
   In order to help other users
   As an User
   I'd like to be able to create answer to the question
-} do
-
+" do
   given(:user) { create(:user) }
   given(:question) { create(:question, author: user) }
 
-  describe 'Authenticated user' do
+  describe 'Authenticated user', js: true do
     background do
       sign_in(user)
       visit question_path(question)
     end
 
     scenario 'User create answer' do
-      fill_in 'Your answer', with: 'My answer'
+      fill_in 'New answer', with: 'My answer'
       click_on 'Answer the question'
 
-      expect(page).to have_content 'My answer'
+      expect(current_path).to eq question_path(question)
+      within '.answers' do
+        expect(page).to have_content 'My answer'
+      end
     end
 
     scenario 'User create invalid answer' do

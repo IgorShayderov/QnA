@@ -1,13 +1,34 @@
-h1 = @question.title
-p = @question.body
+.question-errors
+  = render 'shared/errors', resource: @question
 
-ol
-  = render @question.answers
+.question
+  h4.question-title = @question.title
+  p.question-body = @question.body
+  - if current_user&.author_of?(@question)
+    = link_to 'Edit question', '#', class: 'edit-question-link'
 
-= render 'answers/form', answer: @question.answers.new
-p = current_user
-- if current_user&.author_of?(@question)
-  = link_to "Delete question",
+    = form_with model: @question, class: 'edit-question-form hidden' do |form|
+      = form.label :title, 'Edit question title:'
+      br
+      = form.text_field :title, class: 'question-title'
+      br
+      = form.label :body, 'Edit question text:'
+      br
+      = form.text_area :body, cols: 40, class: 'question-body'
+      br
+      = form.submit 'Edit the question'
+    br
+    = link_to "Delete question",
                   question_path(@question),
                   method: :delete,
                   data:  { confirm: "Are you sure?" }
+
+.answer-errors
+  = render 'shared/errors', resource: @answer
+
+ul.answers
+  = render Answer.sorted_answers(@question)
+
+.new-answer
+  = render 'answers/form', answer: @question.answers.new
+

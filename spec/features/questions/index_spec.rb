@@ -1,11 +1,12 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-feature 'User can view questions list', %q{
+feature 'User can view questions list', "
   In order to choose certain question
   As an User
   I'd like to be able to see questions list
-} do
-
+" do
   given(:user) { create(:user) }
 
   scenario 'Anyone can view questions list' do
@@ -14,5 +15,4 @@ feature 'User can view questions list', %q{
 
     expect(page).to have_content('QuestionTitle', count: 3)
   end
-
 end

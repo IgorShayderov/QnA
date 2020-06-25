@@ -1,0 +1,9 @@
+  answerId = '<%= @answer.id %>';
+  $answer = $(`[data-answer-id=${answerId}]`);
+
+if (!$answer.hasClass('best')) {
+  $('.answer').removeClass('best');
+  $($answer).addClass('best');
+
+  $($answer).prependTo('.answers');
+}

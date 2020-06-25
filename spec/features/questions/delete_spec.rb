@@ -1,11 +1,12 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-feature 'Author can delete his begotten questions', %q{
+feature 'Author can delete his begotten questions', "
   In order to delete my begotten questions
   As an authenticated User
   I'd like to be able to delete questions
-} do
-
+" do
   given(:user) { create(:user) }
   given(:other_user) { create(:user) }
   given!(:question) { create(:question, author: user) }
@@ -36,6 +37,5 @@ feature 'Author can delete his begotten questions', %q{
         expect(page).to_not have_content 'Delete question'
       end
     end
-
   end
 end

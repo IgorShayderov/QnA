@@ -1,0 +1,10 @@
+$('.answer-errors').html('<%= render 'shared/errors', resource: @answer %>');
+
+<% if !@answer.errors.present? %>
+  answerId = '<%= @answer.id %>';
+  $answerBodyText = $(`[data-answer-id=${answerId}] .answer-body`);
+
+  $(`[data-answer-id=${answerId}] .answer-body`).text('<%= @answer.body %>');
+  $(`[data-answer-id=${answerId}] .edit-answer-link`).show();
+  $(`form#edit-answer-${answerId}`).addClass('hidden');
+<% end %>

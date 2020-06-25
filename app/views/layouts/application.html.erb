@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Qna</title>
+    <title>QnA</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -9,12 +9,13 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="ml-2">
     <header>
       <%= render 'shared/nav' %>
       <%= render 'shared/flash' %>
     </header>
-
-    <%= yield %>
+    <main>
+      <%= yield %>
+    </main>
   </body>
 </html>

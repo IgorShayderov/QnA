@@ -1,3 +1,25 @@
 // Place all the styles related to the Answers controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.answer {
+  border: 1px solid black;
+  list-style: none;
+  padding: 1em;
+  margin-bottom: 3px;
+  margin-right: 1em;
+  position: relative;
+}
+
+.best {
+  background-color: yellow;
+}
+
+.best::before {
+  content: "Best";
+  position: absolute;
+  right: 1vw;
+  top: 1vh;
+  text-transform: uppercase;
+  font-style: italic;
+}

@@ -1,11 +1,12 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-feature 'User can register', %q{
+feature 'User can register', "
   In order to sign in
   As an user
   I'd like to be able register
-} do
-
+" do
   given(:password) { '12345678' }
 
   scenario 'User trying to register' do
@@ -18,6 +19,4 @@ feature 'User can register', %q{
 
     expect(page).to have_content('Welcome! You have signed up successfully')
   end
-
-
 end

@@ -1,8 +1,29 @@
 - if answer.persisted?
-  li
-    p = answer.body
-    - if current_user&.author_of?(answer)
+   = tag.li class: "answer #{'best' if answer.best}", data: { answer_id: answer.id }
+    p.answer-body = answer.body
+
+    - if user_signed_in? && current_user&.author_of?(@question)
+      = link_to 'Choose as best answer',
+                best_answer_path(answer: {best: true}, id: answer.id),
+                method: :patch,
+                remote: true,
+                class: 'choose-best-answer'
+      br
+
+    - if user_signed_in? && current_user&.author_of?(answer)
+      = link_to 'Edit answer', '#', class: 'edit-answer-link'
+
+      = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |form|
+        = form.label :body, 'Edited answer:'
+        br
+        = form.text_area :body, cols: 40
+        br
+        = form.submit 'Edit the answer'
+
+      br
+
       = link_to "Delete answer",
                     answer_path(answer),
                     method: :delete,
-                    data:  { confirm: "Are you sure?" }
+                    data:  { confirm: "Are you sure?" },
+                    remote: true 

@@ -1,29 +1,24 @@
+# frozen_string_literal: true
+
 class AnswersController < ApplicationController
   before_action :authenticate_user!
   before_action :get_question, only: %i[create]
-  before_action :get_answer, only: %i[edit update destroy]
+  before_action :get_answer, only: %i[edit update destroy best]
 
   def create
-    @answer = @question.answers.new(answer_params.merge(author: current_user))
-
-    if @answer.save
-      redirect_to @question
-    else
-      render 'questions/show'
-    end
+    @answer = @question.answers.create(answer_params.merge(author: current_user))
   end
 
   def update
-    if @answer.update(answer_params)
-      redirect_to @answer
-    else
-      render 'questions/show'
-    end
+    @answer.update(answer_params) if current_user.author_of?(@answer)
   end
 
   def destroy
     @answer.destroy if current_user.author_of?(@answer)
-    redirect_to @answer.question
+  end
+
+  def best
+    @answer.make_best if current_user.author_of?(@answer.question)
   end
 
   private
