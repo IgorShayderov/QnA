@@ -18,7 +18,7 @@ class AnswersController < ApplicationController
   end
 
   def best
-    @answer.make_best(best_answer_params) if current_user.author_of?(@answer.question)
+    @answer.make_best if current_user.author_of?(@answer.question)
   end
 
   private
@@ -33,9 +33,5 @@ class AnswersController < ApplicationController
 
   def answer_params
     params.require(:answer).permit(:body)
-  end
-
-  def best_answer_params
-    params.require(:answer).permit(:best)
   end
 end

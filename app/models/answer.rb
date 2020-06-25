@@ -8,16 +8,12 @@ class Answer < ApplicationRecord
 
   scope :sorted_answers, ->(question) { where(question: question).order(best: :desc, created_at: :desc) }
 
-  def make_best(params)
-    process_best_answer(params) if !best?
-  end
-
-  private
-
-  def process_best_answer(params)
-    Answer.transaction do
-      question.answers.where(best: true).update_all(best: false)
-      update(params)
+  def make_best
+    if !best?
+      Answer.transaction do
+        question.answers.where(best: true).update_all(best: false)
+        update!(best: true)
+      end
     end
   end
 end
