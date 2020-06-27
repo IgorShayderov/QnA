@@ -6,11 +6,17 @@
       - if answer.files.attached?
         .answer-files
           - answer.files.each do |file|
-            p = link_to file.filename.to_s, url_for(file)
+            p.answer-file
+              = link_to file.filename.to_s, url_for(file)
+              = link_to '(Delete)',
+                        delete_file_answer_path(id: answer.id, file_id: file.id),
+                        method: :delete,
+                        data: {confirm: 'Are you sure?'},
+                        class: 'ml-1'
 
       - if current_user&.author_of?(@question)
         = link_to 'Choose as best answer',
-                  best_answer_path(answer: {best: true}, id: answer.id),
+                  best_answer_path(id: answer.id),
                   method: :patch,
                   remote: true,
                   class: 'choose-best-answer'

@@ -3,7 +3,7 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
   before_action :get_question, only: %i[create]
-  before_action :get_answer, only: %i[edit update destroy best]
+  before_action :get_answer, only: %i[edit update destroy best delete_file]
 
   def create
     @answer = @question.answers.create(answer_params.merge(author: current_user))
@@ -19,6 +19,12 @@ class AnswersController < ApplicationController
 
   def best
     @answer.make_best if current_user.author_of?(@answer.question)
+  end
+
+  def delete_file
+    @answer.files.find(params[:file_id]).purge
+
+    redirect_to question_path(@answer.question)
   end
 
   private
