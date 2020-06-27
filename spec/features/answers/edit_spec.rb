@@ -35,6 +35,19 @@ feature 'Author can edit his answer', "
       end
     end
 
+    scenario 'edits his answer by attaching files' do
+      sign_in(user)
+      visit question_path(question)
+
+      within '.answers' do
+        click_on 'Edit answer'
+        attach_file "#{Rails.root}/spec/rails_helper.rb"
+        click_on 'Edit the answer'
+
+        expect(page).to have_link 'rails_helper.rb'
+      end
+    end
+
     scenario 'edits his answer with errors' do
       sign_in(user)
       visit question_path(question)

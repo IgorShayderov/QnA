@@ -13,19 +13,19 @@ $('.question-errors').html('<%= render 'shared/errors', resource: @question %>')
   editQuestionLink.classList.remove('hidden');
   editQuestionForm.classList.add('hidden');
 
-  $fileBlock = $('#question_files');
-  $fileBlock.replaceWith($fileBlock.val('').clone(true));
-
   <% if @question.files.attached? %>
+    $attachFileForm = $('#question_files');
+    $attachFileForm.replaceWith($attachFileForm.val('').clone(true));
+
     filesBlock = document.querySelector('.question-files');
     $(filesBlock).html('');
 
     <% @question.files.each do |file| %>
-      fileBlock = document.createElement('p');
-      fileBlock.classList.add('question-file');
-      $(fileBlock).html('<%= link_to file.filename.to_s, url_for(file) %>');
+      singleFileBlock = document.createElement('p');
+      singleFileBlock.classList.add('question-file');
+      $(singleFileBlock).html('<%= link_to file.filename.to_s, url_for(file) %>');
 
-      filesBlock.appendChild(fileBlock);
+      filesBlock.appendChild(singleFileBlock);
     <% end %>
   <% end %>
 <% end %>

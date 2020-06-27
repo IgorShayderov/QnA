@@ -2,9 +2,25 @@ $('.answer-errors').html('<%= render 'shared/errors', resource: @answer %>');
 
 <% if !@answer.errors.present? %>
   answerId = '<%= @answer.id %>';
-  $answerBodyText = $(`[data-answer-id=${answerId}] .answer-body`);
+  $answerNode = $(`[data-answer-id=${answerId}]`);
 
   $(`[data-answer-id=${answerId}] .answer-body`).text('<%= @answer.body %>');
   $(`[data-answer-id=${answerId}] .edit-answer-link`).show();
   $(`form#edit-answer-${answerId}`).addClass('hidden');
+
+  <% if @answer.files.attached? %>
+    $attachFileForm = $('#answer_files');
+    $attachFileForm.replaceWith($attachFileForm.val('').clone(true));
+
+    $filesBlock = $($answerNode).find('.answer-files');
+    $($filesBlock).html('');
+
+    <% @answer.files.each do |file| %>
+      singleFileBlock = document.createElement('p');
+      singleFileBlock.classList.add('answer-file');
+      $(singleFileBlock).html('<%= link_to file.filename.to_s, url_for(file) %>');
+
+      $($filesBlock).append(singleFileBlock);
+    <% end %>
+  <% end %>
 <% end %>

@@ -4,8 +4,9 @@
 
     - if user_signed_in?
       - if answer.files.attached?
-        - answer.files.each do |file|
-          p = link_to file.filename.to_s, url_for(file)
+        .answer-files
+          - answer.files.each do |file|
+            p = link_to file.filename.to_s, url_for(file)
 
       - if current_user&.author_of?(@question)
         = link_to 'Choose as best answer',
@@ -23,7 +24,11 @@
           br
           = form.text_area :body, cols: 40
           br
-          = form.submit 'Edit the answer'
+          = form.label :files
+          br
+          = form.file_field :files, multiple: true
+          br
+          = form.submit 'Edit the answer', class: 'mt-2 btn btn-primary'
 
         br
 
