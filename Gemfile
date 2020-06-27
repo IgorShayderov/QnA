@@ -64,5 +64,9 @@ group :test do
   gem 'rails-controller-testing'
   gem 'shoulda-matchers'
   gem 'webdrivers'
+  # cloud storage
   gem "aws-sdk-s3", require: false
 end
+
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
