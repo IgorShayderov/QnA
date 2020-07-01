@@ -3,9 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
-  let(:user) { create(:user) }
-  let(:question) { create(:question, author: user) }
-  let(:answer) { create(:answer, question: question, author: user) }
+
+  let!(:user) { create(:user) }
+  let!(:question) { create(:question, author: user) }
+  let!(:answer) { create(:answer, question: question, author: user) }
+  let!(:other_user) { create(:user) }
+  let!(:other_answer) { create(:answer, question: question, author: other_user) }
   before { login(user) }
 
   describe 'POST #create' do
@@ -81,17 +84,13 @@ RSpec.describe AnswersController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    let!(:answer) { create(:answer, question: question, author: user) }
-    let!(:other_user) { create(:user) }
-    let!(:other_answer) { create(:answer, question: question, author: other_user) }
-
     context 'Author of element' do
       it 'deletes the answer' do
-        expect { delete :destroy, params: { id: answer, question_id: question }, format: :js }.to change(Answer, :count).by(-1)
+        expect { delete :destroy, params: { id: answer }, format: :js }.to change(Answer, :count).by(-1)
       end
 
       it 'renders destroy template' do
-        delete :destroy, params: { id: answer, question_id: question }, format: :js
+        delete :destroy, params: { id: answer }, format: :js
 
         expect(response).to render_template :destroy
       end
@@ -99,14 +98,38 @@ RSpec.describe AnswersController, type: :controller do
 
     context 'User who is not author of an element' do
       it 'tries to delete question' do
-        expect { delete :destroy, params: { id: other_answer, question_id: question }, format: :js }.to_not change(Answer, :count)
+        expect { delete :destroy, params: { id: other_answer }, format: :js }.to_not change(Answer, :count)
       end
 
       it 'renders destroy template' do
-        delete :destroy, params: { id: other_answer, question_id: question }, format: :js
+        delete :destroy, params: { id: other_answer }, format: :js
 
         expect(response).to render_template :destroy
       end
     end
+  end
+
+  describe 'PATCH #best' do
+    context 'Author of answer' do
+      it 'chooses best answer' do
+        patch :best, params: { id: answer }, format: :js
+        answer.reload
+
+        expect(answer).to be_best
+      end
+    end
+
+    context 'not the Author of answer' do
+      it 'tries to choose best answer' do
+        patch :best, params: { id: other_answer }, format: :js
+        answer.reload
+
+        expect(answer).to_not be_best
+      end
+    end
+  end
+
+  describe 'DELETE #delete_file' do
+    
   end
 end

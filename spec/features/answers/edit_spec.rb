@@ -7,6 +7,7 @@ feature 'Author can edit his answer', "
   As an authenticated User
   I'd like to be able to edit my answers
 " do
+  
   given!(:user) { create(:user) }
   given!(:question) { create(:question, author: user) }
   given!(:answer) { create(:answer, question: question, author: user) }
@@ -41,10 +42,11 @@ feature 'Author can edit his answer', "
 
       within '.answers' do
         click_on 'Edit answer'
-        attach_file "#{Rails.root}/spec/rails_helper.rb"
+        attach_file ["#{Rails.root}/spec/rails_helper.rb"]
         click_on 'Edit the answer'
 
         expect(page).to have_link 'rails_helper.rb'
+        expect(page).to have_link '(Delete)'
       end
     end
 

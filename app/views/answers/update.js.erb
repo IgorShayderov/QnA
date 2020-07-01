@@ -3,8 +3,9 @@ $('.answer-errors').html('<%= render 'shared/errors', resource: @answer %>');
 <% if !@answer.errors.present? %>
   answerId = '<%= @answer.id %>';
   $answerNode = $(`[data-answer-id=${answerId}]`);
+  $answerBody = $(`[data-answer-id=${answerId}] .answer-body`);
 
-  $(`[data-answer-id=${answerId}] .answer-body`).text('<%= @answer.body %>');
+  $answerBody.text('<%= @answer.body %>');
   $(`[data-answer-id=${answerId}] .edit-answer-link`).show();
   $(`form#edit-answer-${answerId}`).addClass('hidden');
 
@@ -13,7 +14,14 @@ $('.answer-errors').html('<%= render 'shared/errors', resource: @answer %>');
     $attachFileForm.replaceWith($attachFileForm.val('').clone(true));
 
     $filesBlock = $($answerNode).find('.answer-files');
-    $($filesBlock).html('');
+
+    if ($filesBlock.length) {
+      $($filesBlock).html('');
+    } else {
+      $filesBlock = document.createElement('div');
+      $filesBlock.classList.add('answer-files');
+      $($filesBlock).insertAfter($answerBody);
+    }
 
     <% @answer.files.each do |file| %>
       singleFileBlock = document.createElement('p');

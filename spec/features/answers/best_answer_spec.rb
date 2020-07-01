@@ -4,7 +4,7 @@ require 'rails_helper'
 
 feature 'Author can choose best answers', "
   In order to mark most helpful answer
-  As an Author of question
+  As an Author of answer
   I'd like to be able to choose best answer
 " do
     
