@@ -44,6 +44,7 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 4.0.0'
+  gem 'dotenv-rails'
 end
 
 group :development do
@@ -65,7 +66,8 @@ group :test do
   gem 'shoulda-matchers'
   gem 'webdrivers'
   # cloud storage
-  gem "aws-sdk-s3", require: false
+  gem 'aws-sdk-s3', require: false
+  gem 'rack-cors'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

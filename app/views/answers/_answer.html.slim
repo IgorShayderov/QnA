@@ -33,7 +33,7 @@
           br
           = form.label :files
           br
-          = form.file_field :files, multiple: true
+          = form.file_field :files, multiple: true, direct_upload: true
           br
           = form.submit 'Edit the answer', class: 'mt-2 btn btn-primary'
 

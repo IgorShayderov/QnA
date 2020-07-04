@@ -34,7 +34,7 @@ class AnswersController < ApplicationController
   end
 
   def get_answer
-    @answer = Answer.find(params[:id])
+    @answer = Answer.with_attached_files.find(params[:id])
   end
 
   def answer_params
