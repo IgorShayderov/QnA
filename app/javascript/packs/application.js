@@ -21,5 +21,3 @@ require('utilities/questions');
 
 import * as ActiveStorage from "@rails/activestorage"
 ActiveStorage.start()
-
-

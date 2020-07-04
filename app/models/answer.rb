@@ -11,7 +11,7 @@ class Answer < ApplicationRecord
   scope :sorted_answers, ->(question) { where(question: question).order(best: :desc, created_at: :asc) }
 
   def make_best
-    return unless best?
+    return if best?
 
     Answer.transaction do
       question.answers.where(best: true).update_all(best: false)
