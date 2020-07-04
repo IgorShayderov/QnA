@@ -16,6 +16,7 @@ $('.question-errors').html('<%= render 'shared/errors', resource: @question %>')
   <% if @question.files.attached? %>
     $attachFileForm = $('#question_files');
     $attachFileForm.replaceWith($attachFileForm.val('').clone(true));
+    $('#question_files').prop('disabled', false);
 
     filesBlock = document.querySelector('.question-files');
 
@@ -30,8 +31,9 @@ $('.question-errors').html('<%= render 'shared/errors', resource: @question %>')
     <% @question.files.each do |file| %>
       singleFileBlock = document.createElement('p');
       singleFileBlock.classList.add('question-file');
+      $(singleFileBlock).attr('data-file', '<%= file.id %>');
       $(singleFileBlock).html('<%= link_to file.filename.to_s, url_for(file) %>');
-      delete_file_link = '<%= link_to '(Delete)', delete_file_question_path(id: @question.id, file_id: file.id), method: :delete, data: {confirm: 'Are you sure?'}, class: 'ml-1' %>';
+      delete_file_link = '<%= link_to '(Delete)', delete_file_question_path(id: @question.id, file_id: file.id), remote: true, method: :delete, data: {confirm: 'Are you sure?'}, class: 'ml-1' %>';
       $(singleFileBlock).append(delete_file_link);
 
       filesBlock.appendChild(singleFileBlock);

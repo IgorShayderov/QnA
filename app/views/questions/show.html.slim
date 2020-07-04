@@ -8,13 +8,14 @@
   - if @question.files.attached?
     .question-files
       - @question.files.each do |file|
-        p.question-file 
+        p.question-file data-file=file.id
           = link_to file.filename.to_s, url_for(file)
           - if current_user&.author_of?(@question)
             = link_to '(Delete)',
                         delete_file_question_path(id: @question.id, file_id: file.id),
                         method: :delete,
-                        data: {confirm: 'Are you sure?'},
+                        remote: true,
+                        data: { confirm: 'Are you sure?' },
                         class: 'ml-1'
 
   - if current_user&.author_of?(@question)

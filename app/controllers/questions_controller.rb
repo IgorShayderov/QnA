@@ -39,8 +39,6 @@ class QuestionsController < ApplicationController
 
   def delete_file
     @question.files.find(params[:file_id]).purge
-
-    redirect_to question_path(@question)
   end
 
   private
