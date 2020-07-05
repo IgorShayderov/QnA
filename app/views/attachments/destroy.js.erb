@@ -1,4 +1,4 @@
-fileId = '<%= params[:file_id] %>';
+fileId = '<%= @attachment.id %>';
 fileBlock = document.querySelector(`[data-file='${fileId}']`);
 
 fileBlock.remove();

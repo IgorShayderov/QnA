@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
   before_action :get_question, only: %i[show edit update destroy delete_file]
@@ -25,20 +27,16 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    @question.update(question_params) if current_user.author_of?(@question)
+    @question.update(question_params) if current_user&.author_of?(@question)
   end
 
   def destroy
-    if current_user.author_of?(@question)
-      @question.destroy 
+    if current_user&.author_of?(@question)
+      @question.destroy
       redirect_to questions_path
     else
       redirect_to question_path(@question)
     end
-  end
-
-  def delete_file
-    @question.files.find(params[:file_id]).purge
   end
 
   private

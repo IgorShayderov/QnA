@@ -7,7 +7,6 @@ feature 'Author can delete attached files from questions', "
   As an Author of question
   I'd like to delete attached files
 " do
-
   given!(:user) { create(:user) }
   given!(:other_user) { create(:user) }
   given!(:question) { create(:question, author: user) }
@@ -57,5 +56,4 @@ feature 'Author can delete attached files from questions', "
       expect(page).to have_content question.body
     end
   end
-
 end

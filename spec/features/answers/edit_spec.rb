@@ -7,7 +7,6 @@ feature 'Author can edit his answer', "
   As an authenticated User
   I'd like to be able to edit my answers
 " do
-  
   given!(:user) { create(:user) }
   given!(:question) { create(:question, author: user) }
   given!(:answer) { create(:answer, question: question, author: user) }

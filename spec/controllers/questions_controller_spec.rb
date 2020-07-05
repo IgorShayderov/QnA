@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
@@ -60,7 +62,7 @@ RSpec.describe QuestionsController, type: :controller do
 
       it 're-renders new view' do
         post :create, params: { question: attributes_for(:question, :invalid) }
-        
+
         expect(response).to render_template :new
       end
     end
@@ -98,7 +100,7 @@ RSpec.describe QuestionsController, type: :controller do
       end
       it 'renders update template' do
         patch :update, params: { id: question, question: attributes_for(:question, :invalid), format: :js }
-        
+
         expect(response).to render_template :update
       end
     end
@@ -107,7 +109,7 @@ RSpec.describe QuestionsController, type: :controller do
   describe 'DELETE #destroy' do
     let!(:question) { create(:question, author: user) }
     let!(:other_user) { create(:user) }
-    let!(:other_question) { create(:question, author: other_user )}
+    let!(:other_question) { create(:question, author: other_user) }
 
     context 'Author of element' do
       it 'deletes the question' do

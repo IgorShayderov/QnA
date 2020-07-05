@@ -7,11 +7,10 @@ feature 'Author can delete attached files from answers', "
   As an Author of answer
   I'd like to delete attached files
 " do
-
   given!(:user) { create(:user) }
   given!(:other_user) { create(:user) }
   given!(:question) { create(:question, author: user) }
-  given!(:answer) { create(:answer, question: question, author: user) }
+  given!(:answer) { creWate(:answer, question: question, author: user) }
 
   before do
     sign_in(user)
@@ -58,5 +57,4 @@ feature 'Author can delete attached files from answers', "
       expect(page).to have_content question.body
     end
   end
-
 end

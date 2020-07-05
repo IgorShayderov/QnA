@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
-
   let!(:user) { create(:user) }
   let!(:question) { create(:question, author: user) }
   let!(:answer) { create(:answer, question: question, author: user) }
@@ -21,7 +20,7 @@ RSpec.describe AnswersController, type: :controller do
         expect { post :create, params: { answer: attributes_for(:answer), question_id: question, format: :js } }.to change(question.answers, :count).by(1)
       end
 
-      it 'redirects to show question view' do
+      it 'renders create template' do
         expect(response).to render_template :create
       end
 
@@ -127,9 +126,5 @@ RSpec.describe AnswersController, type: :controller do
         expect(answer).to_not be_best
       end
     end
-  end
-
-  describe 'DELETE #delete_file' do
-    
   end
 end
