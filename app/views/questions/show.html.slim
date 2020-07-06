@@ -18,6 +18,10 @@
                         data: { confirm: 'Are you sure?' },
                         class: 'ml-1'
 
+  .links
+    - @question.links.each do |link|
+      li = link_to link.name, link.url
+
   - if current_user&.author_of?(@question)
     = link_to 'Edit question', '#', class: 'edit-question-link'
 
