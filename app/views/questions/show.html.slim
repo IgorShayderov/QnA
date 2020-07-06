@@ -4,6 +4,20 @@
 .question
   h4.question-title = @question.title
   p.question-body = @question.body
+
+  - if @question.files.attached?
+    .question-files
+      - @question.files.each do |file|
+        p.question-file data-file=file.id
+          = link_to file.filename.to_s, url_for(file)
+          - if current_user&.author_of?(@question)
+            = link_to '(Delete)',
+                        attachment_path(id: file.id),
+                        method: :delete,
+                        remote: true,
+                        data: { confirm: 'Are you sure?' },
+                        class: 'ml-1'
+
   - if current_user&.author_of?(@question)
     = link_to 'Edit question', '#', class: 'edit-question-link'
 
@@ -16,19 +30,22 @@
       br
       = form.text_area :body, cols: 40, class: 'question-body'
       br
-      = form.submit 'Edit the question'
+      = form.label :files
+      br
+      = form.file_field :files, multiple: true, direct_upload: true
+      br
+      = form.submit 'Edit the question', class: 'btn btn-primary mt-2'
     br
-    = link_to "Delete question",
+    = link_to 'Delete question',
                   question_path(@question),
                   method: :delete,
-                  data:  { confirm: "Are you sure?" }
+                  data:  { confirm: 'Are you sure?' }
 
 .answer-errors
   = render 'shared/errors', resource: @answer
 
 ul.answers
-  = render Answer.sorted_answers(@question)
+  = render Answer.with_attached_files.sorted_answers(@question)
 
 .new-answer
   = render 'answers/form', answer: @question.answers.new
-

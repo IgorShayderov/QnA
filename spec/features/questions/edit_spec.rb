@@ -34,6 +34,19 @@ feature 'Author can edit his question', "
       end
     end
 
+    scenario 'edits his question by attaching files' do
+      sign_in(user)
+      visit question_path(question)
+
+      within '.question' do
+        click_link 'Edit question'
+        attach_file "#{Rails.root}/spec/rails_helper.rb"
+        click_on 'Edit the question'
+
+        expect(page).to have_link 'rails_helper.rb'
+      end
+    end
+
     scenario 'edits his question with errors' do
       sign_in(user)
       visit question_path(question)

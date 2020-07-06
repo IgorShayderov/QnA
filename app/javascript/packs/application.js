@@ -18,3 +18,6 @@ require('jquery')
 
 require('utilities/answers');
 require('utilities/questions');
+
+import * as ActiveStorage from "@rails/activestorage"
+ActiveStorage.start()

@@ -10,15 +10,15 @@ class AnswersController < ApplicationController
   end
 
   def update
-    @answer.update(answer_params) if current_user.author_of?(@answer)
+    @answer.update(answer_params) if current_user&.author_of?(@answer)
   end
 
   def destroy
-    @answer.destroy if current_user.author_of?(@answer)
+    @answer.destroy if current_user&.author_of?(@answer)
   end
 
   def best
-    @answer.make_best if current_user.author_of?(@answer.question)
+    @answer.make_best if current_user&.author_of?(@answer.question)
   end
 
   private
@@ -28,10 +28,10 @@ class AnswersController < ApplicationController
   end
 
   def get_answer
-    @answer = Answer.find(params[:id])
+    @answer = Answer.with_attached_files.find(params[:id])
   end
 
   def answer_params
-    params.require(:answer).permit(:body)
+    params.require(:answer).permit(:body, files: [])
   end
 end

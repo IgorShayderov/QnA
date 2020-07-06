@@ -12,4 +12,32 @@ $('.question-errors').html('<%= render 'shared/errors', resource: @question %>')
 
   editQuestionLink.classList.remove('hidden');
   editQuestionForm.classList.add('hidden');
+
+  <% if @question.files.attached? %>
+    $attachFileForm = $('#question_files');
+    $attachFileForm.replaceWith($attachFileForm.val('').clone(true));
+    $('#question_files').prop('disabled', false);
+
+    filesBlock = document.querySelector('.question-files');
+
+    if (filesBlock) {
+      $(filesBlock).html('');
+    } else {
+      filesBlock = document.createElement('div');
+      filesBlock.classList.add('question-files');
+      questionBody.after(filesBlock);
+    }
+
+    <% @question.files.each do |file| %>
+      singleFileBlock = document.createElement('p');
+      singleFileBlock.classList.add('question-file');
+      $(singleFileBlock).attr('data-file', '<%= file.id %>');
+      $(singleFileBlock).html('<%= link_to file.filename.to_s, url_for(file) %>');
+
+      delete_file_link = '<%= link_to '(Delete)', attachment_path(id: file.id), remote: true, method: :delete, data: {confirm: 'Are you sure?'}, class: 'ml-1' %>';
+      $(singleFileBlock).append(delete_file_link);
+
+      filesBlock.appendChild(singleFileBlock);
+    <% end %>
+  <% end %>
 <% end %>
