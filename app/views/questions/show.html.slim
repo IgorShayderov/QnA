@@ -7,9 +7,11 @@
 
   - if @question.files.attached?
     .question-files
+
       - @question.files.each do |file|
         p.question-file data-file=file.id
           = link_to file.filename.to_s, url_for(file)
+
           - if current_user&.author_of?(@question)
             = link_to '(Delete)',
                         attachment_path(id: file.id),
@@ -38,6 +40,16 @@
       br
       = form.file_field :files, multiple: true, direct_upload: true
       br
+      p Links:
+      .links
+        = form.fields_for :links do |link|
+          = link.label :name, 'Link name'
+          br
+          = link.text_field :name
+          br
+          = link.label :url
+          br
+          = link.text_field :url
       = form.submit 'Edit the question', class: 'btn btn-primary mt-2'
     br
     = link_to 'Delete question',
@@ -52,4 +64,4 @@ ul.answers
   = render Answer.with_attached_files.sorted_answers(@question)
 
 .new-answer
-  = render 'answers/form', answer: @question.answers.new
+  = render 'answers/form', answer: @answer

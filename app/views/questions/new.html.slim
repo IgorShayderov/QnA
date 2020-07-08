@@ -1,8 +1,6 @@
 = render 'shared/errors', resource: @question
 
 = form_with model: @question, local: true do |f|
-  h5 Hz
-    p lol
   = f.label :title
   br
   = f.text_field :title

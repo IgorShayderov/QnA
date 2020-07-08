@@ -8,4 +8,14 @@
   br
   = form.file_field :files, multiple: true, direct_upload: true
   br
+  p Links:
+  .links
+    = form.fields_for :links do |link|
+      = link.label :name, 'Link name'
+      br
+      = link.text_field :name
+      br
+      = link.label :url
+      br
+      = link.text_field :url
   = form.submit 'Answer the question', class: 'mt-2 mb-2 btn btn-primary'

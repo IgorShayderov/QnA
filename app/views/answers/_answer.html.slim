@@ -2,12 +2,17 @@
    = tag.li class: "answer #{'best' if answer.best}", data: { answer_id: answer.id }
     p.answer-body = answer.body
 
+    ul.links
+      - answer.links.each do |link|
+        li = link_to link.name, link.url
+
     - if user_signed_in?
       - if answer.files.attached?
         .answer-files
           - answer.files.each do |file|
             p.answer-file data-file=file.id
               = link_to file.filename.to_s, url_for(file)
+
               - if current_user&.author_of?(answer)
                 = link_to '(Delete)',
                           attachment_path(id: file.id),
@@ -38,6 +43,15 @@
           br
           = form.submit 'Edit the answer', class: 'mt-2 btn btn-primary'
 
+          .links
+            = form.fields_for :links do |link|
+              = link.label :name, 'Link name'
+              br
+              = link.text_field :name
+              br
+              = link.label :url
+              br
+              = link.text_field :url
         br
 
         = link_to 'Delete answer',
