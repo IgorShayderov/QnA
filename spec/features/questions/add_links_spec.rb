@@ -22,4 +22,24 @@ feature 'User can add links to the questions', "
 
     expect(page).to have_link 'My gist', href: gist_url
   end
+
+  scenario 'User deletes link', js: true do
+    sign_in(user)
+    visit new_question_path
+
+    fill_in 'Title', with: 'Test question'
+    fill_in 'Body', with: 'text text text'
+    fill_in 'Link name', with: 'My gist'
+    fill_in 'Url', with: gist_url
+    click_on 'Ask'
+
+    within '.question' do
+      click_link 'Edit question'
+      page.check({class: 'destroy_link'})
+      click_on 'Edit the question'
+      # page.driver.browser.navigate.refresh
+
+      expect(page).to_not have_link 'My gist', href: gist_url
+    end
+  end
 end

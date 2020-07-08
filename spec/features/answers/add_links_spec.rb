@@ -24,4 +24,23 @@ feature 'User can add links to the answers', "
       expect(page).to have_link 'My gist', href: gist_url
     end
   end
+
+  scenario 'User deletes link', js: true do
+    sign_in(user)
+    visit question_path(question)
+
+    fill_in 'New answer', with: 'My answer'
+    fill_in 'Link name', with: 'My gist'
+    fill_in 'Url', with: gist_url
+    click_on 'Answer the question'
+
+    within '.answers' do
+      click_on 'Edit answer'
+      page.check({class: 'destroy_link'})
+      click_on 'Edit the answer'
+      # page.driver.browser.navigate.refresh
+
+      expect(page).to_not have_link 'My gist', href: gist_url
+    end
+  end
 end

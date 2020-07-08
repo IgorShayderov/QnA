@@ -30,6 +30,7 @@
         br
 
       - if current_user&.author_of?(answer)
+        hr
         = link_to 'Edit answer', '#', class: 'edit-answer-link'
 
         = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |form|
@@ -43,15 +44,20 @@
           br
           = form.submit 'Edit the answer', class: 'mt-2 btn btn-primary'
 
+          p Links:
           .links
             = form.fields_for :links do |link|
-              = link.label :name, 'Link name'
+              = link.label :name, 'Link name:'
               br
               = link.text_field :name
               br
-              = link.label :url
+              = link.label :url, 'Link url:'
               br
               = link.text_field :url
+              br
+              = link.label :_destroy, 'Delete link?', class: 'mr-2'
+              = link.check_box :_destroy, class: 'destroy_link'
+              br
         br
 
         = link_to 'Delete answer',

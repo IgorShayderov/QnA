@@ -25,6 +25,7 @@
       li = link_to link.name, link.url
 
   - if current_user&.author_of?(@question)
+    hr
     = link_to 'Edit question', '#', class: 'edit-question-link'
 
     = form_with model: @question, class: 'edit-question-form hidden' do |form|
@@ -43,13 +44,17 @@
       p Links:
       .links
         = form.fields_for :links do |link|
-          = link.label :name, 'Link name'
+          = link.label :name, 'Link name:'
           br
           = link.text_field :name
           br
-          = link.label :url
+          = link.label :url, 'Link url:'
           br
           = link.text_field :url
+          br
+          = link.label :_destroy, 'Delete link?', class: 'mr-2'
+          = link.check_box :_destroy, class: 'destroy_link'
+          br
       = form.submit 'Edit the question', class: 'btn btn-primary mt-2'
     br
     = link_to 'Delete question',

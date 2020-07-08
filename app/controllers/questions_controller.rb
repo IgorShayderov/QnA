@@ -50,6 +50,6 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit(:title, :body, files: [], links_attributes: %i[id name url])
+    params.require(:question).permit(:title, :body, files: [], links_attributes: %i[id name url _destroy])
   end
 end
