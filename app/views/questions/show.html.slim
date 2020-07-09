@@ -55,6 +55,8 @@
           = link.label :_destroy, 'Delete link?', class: 'mr-2'
           = link.check_box :_destroy, class: 'destroy_link'
           br
+        = link_to_add_association 'Add link', form, :links, partial: 'shared/link_fields'
+        br
       = form.submit 'Edit the question', class: 'btn btn-primary mt-2'
     br
     = link_to 'Delete question',

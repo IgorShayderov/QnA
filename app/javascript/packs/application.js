@@ -19,5 +19,7 @@ require('jquery')
 require('utilities/answers');
 require('utilities/questions');
 
-import * as ActiveStorage from "@rails/activestorage"
-ActiveStorage.start()
+import * as ActiveStorage from "@rails/activestorage";
+ActiveStorage.start();
+
+import "cocoon";

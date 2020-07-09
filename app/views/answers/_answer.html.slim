@@ -55,9 +55,11 @@
               br
               = link.text_field :url
               br
-              = link.label :_destroy, 'Delete link?', class: 'mr-2'
+              = link.label :_destroy, 'Remove link?', class: 'mr-2'
               = link.check_box :_destroy, class: 'destroy_link'
               br
+            = link_to_add_association 'Add link', form, :links, partial: 'shared/link_fields'
+            br
         br
 
         = link_to 'Delete answer',
