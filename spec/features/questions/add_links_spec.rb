@@ -35,7 +35,7 @@ feature 'User can add links to the questions', "
 
     within '.question' do
       click_link 'Edit question'
-      page.check({class: 'destroy_link'})
+      page.check({ class: 'destroy_link' })
       click_on 'Edit the question'
       # page.driver.browser.navigate.refresh
 

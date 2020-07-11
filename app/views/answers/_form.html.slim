@@ -19,4 +19,9 @@
       br
       = link.text_field :url
       br
+      = link.label :_destroy, 'Remove link?', class: 'mr-2'
+      = link.check_box :_destroy, class: 'destroy_link'
+      br
+    = link_to_add_association 'Add link', form, :links, partial: 'shared/link_fields'
+
   = form.submit 'Answer the question', class: 'mt-2 mb-2 btn btn-primary'

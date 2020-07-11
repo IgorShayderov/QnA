@@ -36,7 +36,7 @@ feature 'User can add links to the answers', "
 
     within '.answers' do
       click_on 'Edit answer'
-      page.check({class: 'destroy_link'})
+      page.check({ class: 'destroy_link' })
       click_on 'Edit the answer'
       # page.driver.browser.navigate.refresh
 
