@@ -10,13 +10,11 @@ document.addEventListener('turbolinks:load', function (e) {
       return data.json();
     })
     .then((data) => {
-      const keys = Object.keys(data.files);
-
       if (Object.keys(data.files).length) {
         const gistContent = document.createElement('div');
         const header = document.createElement('p');
 
-        gistContent.appendChild(header);
+        gistContent.append(header);
         header.innerHTML = data.description;
 
         for (let file in data.files) {

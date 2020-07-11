@@ -10,12 +10,10 @@ class QuestionsController < ApplicationController
 
   def show
     @answer = @question.answers.new
-    @answer.links.new
   end
 
   def new
     @question = Question.new
-    @question.links.build
   end
 
   def edit; end
@@ -50,6 +48,12 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit(:title, :body, files: [], links_attributes: %i[id name url _destroy])
+    params.require(:question).permit(
+      :title,
+      :body,
+      files: [],
+      links_attributes: %i[id name url _destroy],
+      reward_attributes: %i[name image]
+      )
   end
 end

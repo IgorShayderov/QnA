@@ -16,12 +16,21 @@
   p Links:
   .links
     = f.fields_for :links do |link|
-      = link.label :name, 'Link name'
-      br
-      = link.text_field :name
-      br
-      = link.label :url
-      br
-      = link.text_field :url
+
+    = link_to_add_association 'Add link', f, :links, partial: 'shared/link_fields'
+
+  = link_to 'Add reward', '#', class: 'add-reward'
+
+  .new-reward.hidden
+    p Choose reward:
+    .reward-form
+      = fields_for :reward do |form|
+        = form.label :name, 'Reward name'
+        br
+        = form.text_field :name
+        br
+        = form.label :image, 'Reward image'
+        br
+        = form.file_field :image, direct_upload: true
   br
   = f.submit 'Ask', class: 'btn btn-primary mt-2'
