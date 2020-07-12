@@ -10,4 +10,20 @@ document.addEventListener('turbolinks:load', function (e) {
       $(`form#edit-answer-${answerId}`).removeClass('hidden');
     });
   }
+
+  $('form.new-answer')
+  .on('ajax:success', (event) => {
+    const answer = event.detail[0];
+
+    $('.answers').append(`<p>${answer.body}</p>`);
+  })
+  .on('ajax:error', (event) => {
+    const erorrs = event.detail[0]
+
+    $('.answer-errors').empty();
+    $(erorrs).each((index, value) => {
+      $('.answer-errors').append(`<p class="alert alert-danger">${value}</p>`);
+    });
+
+  });
 });
