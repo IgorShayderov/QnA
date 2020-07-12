@@ -1,10 +1,13 @@
 # frozen_string_literal: true
 
 class Answer < ApplicationRecord
+  has_many :links, dependent: :destroy, as: :linkable
   belongs_to :question
   belongs_to :author, class_name: 'User', foreign_key: 'user_id'
 
   has_many_attached :files
+
+  accepts_nested_attributes_for :links, reject_if: :all_blank, allow_destroy: true
 
   validates :body, presence: true
 
@@ -16,6 +19,7 @@ class Answer < ApplicationRecord
     Answer.transaction do
       question.answers.where(best: true).update_all(best: false)
       update!(best: true)
+      question.reward&.update!(user: author)
     end
   end
 end

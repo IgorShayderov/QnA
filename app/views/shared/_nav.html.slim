@@ -1,8 +1,14 @@
 - if user_signed_in?
   nav.ml-2
-    span
-      = link_to "All questions", questions_path
+    span.mr-1
+      = link_to 'All questions', questions_path
 
-    p
-      = "Welcome #{current_user.email} "
+    span
+      = link_to 'Rewards', rewards_path
+    br
+
+    span.mr-1
+      = "Welcome, #{current_user.email}"
+
+    span
       = link_to 'Sign out', destroy_user_session_path, method: :delete

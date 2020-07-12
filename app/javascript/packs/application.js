@@ -18,6 +18,10 @@ require('jquery')
 
 require('utilities/answers');
 require('utilities/questions');
+require('utilities/gists');
+require('utilities/reward_on_form');
 
-import * as ActiveStorage from "@rails/activestorage"
-ActiveStorage.start()
+import * as ActiveStorage from "@rails/activestorage";
+ActiveStorage.start();
+
+import "cocoon";
