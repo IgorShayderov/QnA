@@ -9,9 +9,10 @@
   br
   = f.text_area :body
   br
-  = f.label :files
-  br
-  = f.file_field :files, multiple: true, direct_upload: true
+  .files
+    = f.label :files
+    br
+    = f.file_field :files, multiple: true, direct_upload: true
   br
   p Links:
   .links

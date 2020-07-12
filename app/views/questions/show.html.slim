@@ -25,7 +25,7 @@
       - if link.gist?
         li = link_to link.name, link.url, class: 'gist'
       - else
-        li = link_to link.name, link.url
+        li = link_to link.name, link.url, data: { link: link.id }
 
   - if current_user&.author_of?(@question)
     hr

@@ -11,17 +11,19 @@ document.addEventListener('turbolinks:load', function (e) {
     })
     .then((data) => {
       if (Object.keys(data.files).length) {
-        const gistContent = document.createElement('div');
+        const gistBlock = gist.parentElement;
         const header = document.createElement('p');
+        const gistName = document.createElement('p');
 
-        gistContent.append(header);
+        gistName.innerHTML = gist.innerHTML;
+        gistBlock.append(header);
         header.innerHTML = data.description;
 
         for (let file in data.files) {
-          gistContent.insertAdjacentHTML('beforeend', data.files[file].content);
+          gistBlock.insertAdjacentHTML('beforeend', data.files[file].content);
         }
 
-        gist.replaceWith(gistContent);
+        gist.replaceWith(gistName);
       }
     })
     });
