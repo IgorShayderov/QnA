@@ -24,13 +24,13 @@
   .new-reward.hidden
     p Choose reward:
     .reward-form
-      = fields_for :reward do |form|
-        = form.label :name, 'Reward name'
+      = f.fields_for :reward do |q_reward|
+        = q_reward.label :name, 'Reward name'
         br
-        = form.text_field :name
+        = q_reward.text_field :name
         br
-        = form.label :image, 'Reward image'
+        = q_reward.label :image, 'Reward image'
         br
-        = form.file_field :image, direct_upload: true
+        = q_reward.file_field :image, direct_upload: true
   br
   = f.submit 'Ask', class: 'btn btn-primary mt-2'

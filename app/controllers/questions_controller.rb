@@ -14,6 +14,7 @@ class QuestionsController < ApplicationController
 
   def new
     @question = Question.new
+    @question.build_reward
   end
 
   def edit; end
@@ -54,6 +55,6 @@ class QuestionsController < ApplicationController
       files: [],
       links_attributes: %i[id name url _destroy],
       reward_attributes: %i[name image]
-      )
+    )
   end
 end
