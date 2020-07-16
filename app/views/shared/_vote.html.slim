@@ -1,5 +1,4 @@
-.answer-vote.mr-2
 = content_tag :div, class: "#{resource_name(resource)}-vote mr-2"
-  = link_to 'Vote for', '#', class: "vote-for-#{resource_name(resource)}"
+  = link_to '', '#', class: "vote-for fa fa-thumbs-up vote-for-#{resource_name(resource)}"
   p.answer-votes-total 0
-  = link_to 'Vote against', '#', class: "vote-against-#{resource_name(resource)}"
+  = link_to '', '#', class: "vote-against fa fa-thumbs-down vote-against-#{resource_name(resource)}"
