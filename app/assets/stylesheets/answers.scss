@@ -9,6 +9,11 @@
   margin-bottom: 3px;
   margin-right: 1em;
   position: relative;
+  display: flex;
+}
+
+.answer-content {
+  flex-grow: 1;
 }
 
 .best {
@@ -22,4 +27,15 @@
   top: 1vh;
   text-transform: uppercase;
   font-style: italic;
+}
+
+.answer-vote {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto 0;
+
+  .answer-votes-total {
+    margin-bottom: 0;
+  }
 }

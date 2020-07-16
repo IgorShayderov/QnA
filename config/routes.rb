@@ -8,8 +8,15 @@ Rails.application.routes.draw do
   resources :attachments, only: %i[destroy]
   resources :rewards, only: %i[index]
 
-  resources :questions do
-    resources :answers, shallow: true, only: %i[create update destroy] do
+  concern :voted do
+    member do
+      post :vote
+      delete :unvote
+    end
+  end
+
+  resources :questions, concerns: %i[voted] do
+    resources :answers, shallow: true, only: %i[create update destroy], concerns: %i[voted] do
       member do
         patch :best
       end

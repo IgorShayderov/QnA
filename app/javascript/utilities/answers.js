@@ -21,9 +21,13 @@ document.addEventListener('turbolinks:load', function (e) {
     const erorrs = event.detail[0]
 
     $('.answer-errors').empty();
+    $('.answer-errors').append('<p><b>Error(s) detected:</b></p');
+
     $(erorrs).each((index, value) => {
       $('.answer-errors').append(`<p class="alert alert-danger">${value}</p>`);
     });
 
   });
+
+  
 });

@@ -1,73 +1,77 @@
 - if answer.persisted?
-   = tag.li class: "answer #{'best' if answer.best}", data: { answer_id: answer.id }
-    p.answer-body = answer.body
+  = tag.li class: "answer #{'best' if answer.best}", data: { answer_id: answer.id }
 
-    ul.links
-      - answer.links.each do |link|
-        - if link.gist?
-          li = link_to link.name, link.url, class: 'gist'
-        - else
-          li = link_to link.name, link.url, data: { link: link.id }
+    = render 'shared/vote', resource: answer
 
-    - if user_signed_in?
-      - if answer.files.attached?
+    .answer-content
+      p.answer-body = answer.body
 
-        .answer-files
-          - answer.files.each do |file|
-            p.answer-file data-file=file.id
-              = link_to file.filename.to_s, url_for(file)
+      ul.links
+        - answer.links.each do |link|
+          - if link.gist?
+            li = link_to link.name, link.url, class: 'gist'
+          - else
+            li = link_to link.name, link.url, data: { link: link.id }
 
-              - if current_user&.author_of?(answer)
-                = link_to '(Delete)',
-                          attachment_path(id: file.id),
-                          method: :delete,
-                          data: { confirm: 'Are you sure?' },
-                          remote: true,
-                          class: 'ml-1'
+      - if user_signed_in?
+        - if answer.files.attached?
 
-      - if current_user&.author_of?(@question)
-        = link_to 'Choose as best answer',
-                  best_answer_path(id: answer.id),
-                  method: :patch,
-                  remote: true,
-                  class: 'choose-best-answer'
-        br
+          .answer-files
+            - answer.files.each do |file|
+              p.answer-file data-file=file.id
+                = link_to file.filename.to_s, url_for(file)
 
-      - if current_user&.author_of?(answer)
-        hr
-        = link_to 'Edit answer', '#', class: 'edit-answer-link'
+                - if current_user&.author_of?(answer)
+                  = link_to '(Delete)',
+                            attachment_path(id: file.id),
+                            method: :delete,
+                            data: { confirm: 'Are you sure?' },
+                            remote: true,
+                            class: 'ml-1'
 
-        = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |form|
-          = form.label :body, 'Edited answer:'
+        - if current_user&.author_of?(@question)
+          = link_to 'Choose as best answer',
+                    best_answer_path(id: answer.id),
+                    method: :patch,
+                    remote: true,
+                    class: 'choose-best-answer'
           br
-          = form.text_area :body, cols: 40
-          br
-          = form.label :files
-          br
-          = form.file_field :files, multiple: true, direct_upload: true
-          br
-          = form.submit 'Edit the answer', class: 'mt-2 btn btn-primary'
 
-          p Links:
-          .links
-            = form.fields_for :links do |link|
-              = link.label :name, 'Link name:'
-              br
-              = link.text_field :name
-              br
-              = link.label :url, 'Link url:'
-              br
-              = link.text_field :url
-              br
-              = link.label :_destroy, 'Remove link?', class: 'mr-2'
-              = link.check_box :_destroy, class: 'destroy_link'
-              br
-            = link_to_add_association 'Add link', form, :links, partial: 'shared/link_fields'
+        - if current_user&.author_of?(answer)
+          hr
+          = link_to 'Edit answer', '#', class: 'edit-answer-link'
+
+          = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |form|
+            = form.label :body, 'Edited answer:'
             br
-        br
+            = form.text_area :body, cols: 40
+            br
+            = form.label :files
+            br
+            = form.file_field :files, multiple: true, direct_upload: true
+            br
+            = form.submit 'Edit the answer', class: 'mt-2 btn btn-primary'
 
-        = link_to 'Delete answer',
-                    answer_path(answer),
-                    method: :delete,
-                    data:  { confirm: 'Are you sure?' },
-                    remote: true
+            p Links:
+            .links
+              = form.fields_for :links do |link|
+                = link.label :name, 'Link name:'
+                br
+                = link.text_field :name
+                br
+                = link.label :url, 'Link url:'
+                br
+                = link.text_field :url
+                br
+                = link.label :_destroy, 'Remove link?', class: 'mr-2'
+                = link.check_box :_destroy, class: 'destroy_link'
+                br
+              = link_to_add_association 'Add link', form, :links, partial: 'shared/link_fields'
+              br
+          br
+
+          = link_to 'Delete answer',
+                      answer_path(answer),
+                      method: :delete,
+                      data:  { confirm: 'Are you sure?' },
+                      remote: true
