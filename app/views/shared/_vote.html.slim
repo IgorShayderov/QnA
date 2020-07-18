@@ -1,25 +1,28 @@
 = content_tag :div, class: "#{resource_name(resource)}-vote mr-2"
 
-  = link_to polymorphic_path(resource, action: :vote_for),
-            class: "vote-for vote-for-#{resource_name(resource)}",
-            method: :post,
-            remote: true
-    do
-      span.fa.fa-thumbs-up
+  - if user_signed_in? && !current_user&.author_of?(@question)
+    = link_to polymorphic_path(resource, action: :vote_for),
+              class: "vote-for vote-for-#{resource_name(resource)}",
+              method: :post,
+              remote: true
+      do
+        span.fa.fa-thumbs-up
 
   .unvote-block
-    = link_to polymorphic_path(resource, action: :unvote),
-            class: "unvote unvote-#{resource_name(resource)}",
-            method: :delete,
-            remote: true
-      do
-        span.fa.fa-times
+    - if user_signed_in? && !current_user&.author_of?(@question)
+      = link_to polymorphic_path(resource, action: :unvote),
+              class: "unvote unvote-#{resource_name(resource)}",
+              method: :delete,
+              remote: true
+        do
+          span.fa.fa-times
 
     = content_tag :span, resource.votes_total, class: "mr-2 ml-1 #{resource_name(resource)}-votes-total"
 
-  = link_to polymorphic_path(resource, action: :vote_against),
-            class: "vote-against vote-against-#{resource_name(resource)}",
-            method: :post,
-            remote: true
-    do
-      span.fa.fa-thumbs-down
+  - if user_signed_in? && !current_user&.author_of?(@question)
+    = link_to polymorphic_path(resource, action: :vote_against),
+              class: "vote-against vote-against-#{resource_name(resource)}",
+              method: :post,
+              remote: true
+      do
+        span.fa.fa-thumbs-down

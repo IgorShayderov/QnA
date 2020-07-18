@@ -26,7 +26,7 @@ module Votable
   private
 
   def make_vote(user, value)
-    votes.create!(
+    votes.new(
       {
         user: user,
         value: value

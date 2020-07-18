@@ -18,7 +18,7 @@ document.addEventListener('turbolinks:load', function (e) {
     $('.answers').append(`<p>${answer.body}</p>`);
   })
   .on('ajax:error', (event) => {
-    const erorrs = event.detail[0]
+    const erorrs = event.detail[0];
 
     $('.answer-errors').empty();
     $('.answer-errors').append('<p><b>Error(s) detected:</b></p');
@@ -28,6 +28,4 @@ document.addEventListener('turbolinks:load', function (e) {
     });
 
   });
-
-  
 });

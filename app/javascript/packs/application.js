@@ -20,6 +20,7 @@ require('utilities/answers');
 require('utilities/questions');
 require('utilities/gists');
 require('utilities/reward_on_form');
+require('utilities/votes');
 
 import "@fortawesome/fontawesome-free/js/all";
 

@@ -8,18 +8,41 @@ module Voted
   end
 
   def vote_for
-    @votable.vote_for(current_user)
+    unless current_user&.author_of?(@votable)
+      @votable.vote_for(current_user)
+      make_respond
+    end
   end
 
   def vote_against
-    @votable.vote_against(current_user)
+    unless current_user&.author_of?(@votable)
+      @votable.vote_against(current_user)
+      make_respond
+    end
   end
 
   def unvote
-    @votable.unvote(current_user)
+    unless current_user&.author_of?(@votable)
+      @votable.unvote(current_user)
+      make_respond
+    end
   end
 
   private
+
+  def make_respond
+    respond_to do |format|
+      if @votable.save
+        format.json { render json: { id: @votable.id, resource: votable_class, votes_total: @votable.votes_total } }
+      else
+        format.json { render json: { errors: @votable.errors.full_messages, resource: votable_class }, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def votable_class
+    @votable.class.name.underscore
+  end
 
   def model_klass
     controller_name.classify.constantize
