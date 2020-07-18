@@ -28,10 +28,10 @@ feature 'User can vote for answer', "
     it 'votes for answer' do
       # vote for answer
       within '.answers' do
-        click_on 'Vote'
-      end
+        click_on(page.find('.vote-for'))
 
-      expect(find('.answer-votes-total').text).to be(1)
+        expect(find('.answer-votes-total').text).to be(1)
+      end
     end
   end
 
