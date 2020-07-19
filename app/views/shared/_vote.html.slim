@@ -4,7 +4,8 @@
     = link_to polymorphic_path(resource, action: :vote_for),
               class: "vote-for vote-for-#{resource_name(resource)}",
               method: :post,
-              remote: true
+              remote: true,
+              title: 'Vote-for'
       do
         span.fa.fa-thumbs-up
 
@@ -12,16 +13,18 @@
       = link_to polymorphic_path(resource, action: :unvote),
               class: "unvote unvote-#{resource_name(resource)}",
               method: :delete,
-              remote: true
+              remote: true,
+              title: 'Unvote'
         do
           span.fa.fa-times
 
-    = content_tag :span, resource.votes_total, class: "mr-2 ml-1 #{resource_name(resource)}-votes-total"
+      = content_tag :span, resource.votes_total, class: "mr-2 ml-1 #{resource_name(resource)}-votes-total", title: 'Votes-total'
 
     = link_to polymorphic_path(resource, action: :vote_against),
               class: "vote-against vote-against-#{resource_name(resource)}",
               method: :post,
-              remote: true
+              remote: true,
+              title: 'Vote-against'
       do
         span.fa.fa-thumbs-down
 

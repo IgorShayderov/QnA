@@ -7,16 +7,13 @@ feature 'User can vote for answer', "
   As an authenticated User
   I'd like to be able to vote for liked answers
 " do
-#  - Пользователь может проголосовать "за" или "против" конкретного вопроса/ответа только один раз (нельзя голосовать 2 раза подряд "за" или "против")
-#  - Пользователь может отменить свое решение и после этого переголосовать.
-#  - У вопроса/ответа должен выводиться результирующий рейтинг (разница между голосами "за" и "против")
 
   given!(:user) { create(:user) }
   given!(:other_user) { create(:user) }
   given!(:question) { create(:question, author: user) }
-  given!(:answer) { create(:answer, question: question, author: other_user) }
+  given!(:answer) { create(:answer, question: question, author: user) }
 
-  describe 'Authenticated user' do
+  describe 'Authenticated user', js: true do
     context 'author of answer' do
       background do
         sign_in(user)
@@ -26,7 +23,7 @@ feature 'User can vote for answer', "
       it 'should not be able to vote' do
         within '.answers' do
           expect(page).to have_content 'Votes:'
-          expect(page).to_not have_selector '.vote-for'
+          expect(page).to_not have_content 'Vote-for'
         end
       end
     end
@@ -38,7 +35,6 @@ feature 'User can vote for answer', "
       end
 
       it 'votes for the answer' do
-        save_and_open_page
         within '.answers' do
           find('.vote-for').click
         end
@@ -57,9 +53,6 @@ feature 'User can vote for answer', "
       it 'cancel vote' do
         within '.answers' do
           find('.vote-against').click
-        end
-
-        within '.answers' do
           find('.unvote').click
         end
 
@@ -69,9 +62,6 @@ feature 'User can vote for answer', "
       it "can't vote more than two times" do
         within '.answers' do
           find('.vote-for').click
-        end
-
-        within '.answers' do
           find('.vote-for').click
         end
 
@@ -86,7 +76,7 @@ feature 'User can vote for answer', "
 
       within '.answers' do
         expect(page).to have_content 'Votes:'
-        expect(page).to_not have_selector '.vote-for'
+        expect(page).to_not have_content 'Vote-for'
       end
     end
   end
