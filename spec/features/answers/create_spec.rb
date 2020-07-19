@@ -37,6 +37,7 @@ feature 'User can create answer to question', "
 
       attach_file ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
       click_on 'Answer the question'
+      page.driver.browser.navigate.refresh
 
       expect(page).to have_link 'rails_helper.rb'
       expect(page).to have_link 'spec_helper.rb'

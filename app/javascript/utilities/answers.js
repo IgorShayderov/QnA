@@ -3,7 +3,7 @@ document.addEventListener('turbolinks:load', function (e) {
 
   if ($answers) {
     $answers.on('click', '.edit-answer-link', (event) => {
-      const answerId = $(event.target).parent('li').data('answerId');
+      const answerId = $(event.target).parents('[data-answer-id]').data('answerId');
   
       event.preventDefault();
       $(event.target).hide();

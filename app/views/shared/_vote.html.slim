@@ -8,8 +8,7 @@
       do
         span.fa.fa-thumbs-up
 
-  .unvote-block
-    - if user_signed_in? && !current_user&.author_of?(@question)
+    .unvote-block
       = link_to polymorphic_path(resource, action: :unvote),
               class: "unvote unvote-#{resource_name(resource)}",
               method: :delete,
@@ -19,10 +18,13 @@
 
     = content_tag :span, resource.votes_total, class: "mr-2 ml-1 #{resource_name(resource)}-votes-total"
 
-  - if user_signed_in? && !current_user&.author_of?(@question)
     = link_to polymorphic_path(resource, action: :vote_against),
               class: "vote-against vote-against-#{resource_name(resource)}",
               method: :post,
               remote: true
       do
         span.fa.fa-thumbs-down
+
+  - else
+    span Votes:
+    = content_tag :span, resource.votes_total, class: "mr-2 ml-1 #{resource_name(resource)}-votes-total"
