@@ -12,7 +12,7 @@ class AnswersController < ApplicationController
 
     respond_to do |format|
       if @answer.save
-        format.json { render json: @answer }
+        format.json { render json: { answer: @answer, is_author: current_user&.author_of?(@answer), links: @answer.links } }
       else
         format.json { render json: @answer.errors.full_messages, status: :unprocessable_entity }
       end

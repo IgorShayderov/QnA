@@ -16,7 +16,7 @@ module Votable
   end
 
   def unvote(user)
-    votes.where(user: user).select(:id).destroy_all
+    votes.where(user: user).destroy_all
   end
 
   def votes_total
