@@ -20,6 +20,8 @@ feature 'User can add links to the answers', "
     fill_in 'Link name:', with: 'Google'
     fill_in 'Link url:', with: google_url
     click_on 'Answer the question'
+    page.driver.browser.navigate.refresh
+
 
     within '.answers' do
       expect(page).to have_link 'Google', href: google_url
@@ -35,6 +37,7 @@ feature 'User can add links to the answers', "
     fill_in 'Link name:', with: 'Google'
     fill_in 'Link url:', with: google_url
     click_on 'Answer the question'
+    page.driver.browser.navigate.refresh
 
     within '.answers' do
       click_on 'Edit answer'

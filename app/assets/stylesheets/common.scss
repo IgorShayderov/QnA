@@ -1,3 +1,32 @@
- .hidden {
-   display: none;
- }
+.hidden {
+  display: none;
+}
+
+.vote-for, .vote-against, .unvote {
+  cursor: pointer;
+  transition-duration: 0.5s;
+  color: black;
+}
+
+.vote-for:hover {
+  transform: translateY(-3px) scale(1.2);
+}
+
+.vote-against:hover {
+  transform: translateY(3px) scale(1.2);
+}
+
+.unvote:hover {
+  transform: rotate(360deg) scale(2);
+}
+
+.answer-vote, .question-vote {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto 0;
+
+  .answer-votes-total, .question-votes-total {
+    margin-bottom: 0;
+  }
+}
