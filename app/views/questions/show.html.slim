@@ -77,5 +77,6 @@
 ul.answers
   = render Answer.with_attached_files.sorted_answers(@question)
 
-.new-answer
-  = render 'answers/form'
+- if user_signed_in?
+  .new-answer
+    = render 'answers/form'

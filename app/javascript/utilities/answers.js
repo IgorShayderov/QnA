@@ -24,7 +24,7 @@ document.addEventListener('turbolinks:load', function (e) {
     }
 
     const $voteNode = $('<div></div>', { class: 'answer-vote mr-2' });
-
+    // не добавлены ссылки для голосования
     if (is_author) {
       $voteNode.append("<span>Votes:</span><span class='mr-2 ml-1 answer-votes-total'>0</span");
     } else if (!is_author){
@@ -51,6 +51,7 @@ document.addEventListener('turbolinks:load', function (e) {
     $(formNode).attr('accept-charset', 'UTF-8');
     $(formNode).attr('data-remote', 'true');
     $(formNode).attr('method', 'post');
+    // форма не добавлена полностью
 
     $(formNode).append('<input>', { type: 'hidden', name: '_method', value: 'patch' });
     $(formNode).append("<label for='answer_body'>Edited answer:</label><br>");

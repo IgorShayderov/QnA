@@ -34,9 +34,11 @@ feature 'User can create answer to question', "
 
     scenario 'create an answer with attached files' do
       fill_in 'New answer', with: 'Answering your question...'
-
-      attach_file ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
-      click_on 'Answer the question'
+        
+      within 'form.new-answer' do
+        attach_file ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
+        click_on 'Answer the question'
+      end
       page.driver.browser.navigate.refresh
 
       expect(page).to have_link 'rails_helper.rb'
