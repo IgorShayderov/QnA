@@ -6,7 +6,7 @@ consumer.subscriptions.create("QuestionsChannel", {
   },
   connected() {
     // Called when the subscription is ready for use on the server
-    this.perform('recieve', { text: 'string string moon sun' });
+    // this.perform('recieve', { text: 'string string moon sun' });
   }, 
 
   disconnected() {
@@ -15,8 +15,6 @@ consumer.subscriptions.create("QuestionsChannel", {
 
   received(data) {
     // Called when there's incoming data on the websocket for this channel
-    console.log('Recieved new question');
     $('.all-questions').append(data);
-    console.log(data, 'data');
   }
 });

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :vote do
     for_question # default to the :for_photo trait if none is specified

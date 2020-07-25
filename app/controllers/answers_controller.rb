@@ -7,6 +7,8 @@ class AnswersController < ApplicationController
   before_action :get_question, only: %i[create]
   before_action :get_answer, only: %i[edit update destroy best]
 
+  after_action :publish_answer, only: %i[create]
+
   def create
     @answer = @question.answers.create(answer_params.merge(author: current_user))
 
@@ -43,5 +45,13 @@ class AnswersController < ApplicationController
 
   def answer_params
     params.require(:answer).permit(:body, files: [], links_attributes: %i[id name url _destroy])
+  end
+
+  def publish_answer
+    ActionCable.server.broadcast("questions/#{@answer.question_id}/answers", {
+                                   answer: @answer,
+                                   is_author: current_user&.author_of?(@answer),
+                                   links: @answer.links
+                                 })
   end
 end
