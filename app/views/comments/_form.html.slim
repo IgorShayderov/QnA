@@ -1,6 +1,6 @@
 = form_with model: [commentable, Comment.new],
             html: { id: "new-comment-for-#{resource_name(commentable)}-#{commentable.id}" } do |f|
-  = f.label :comment_body, 'Your comment:'
+  = f.label :body, 'Your comment:'
   br
   = f.text_area :body
   br

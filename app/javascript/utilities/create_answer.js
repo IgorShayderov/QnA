@@ -1,4 +1,4 @@
-export default function(answer, is_author, links) {
+export default function(answer, is_author, links, files) {
   const $answerNode = $(document.createElement('li')).attr('data-answer-id', answer.id).addClass('answer');
   const $answerContent = $('<div></div>', { class: 'answer-content' });
 
@@ -20,13 +20,30 @@ export default function(answer, is_author, links) {
   }
 
   if (links.length) {
-    const linksNode = $("<ul class='links'></ul>");
+    const $linksNode = $("<ul class='links'></ul>");
 
     links.forEach((link) => {
-      $(linksNode).append(`<li data-link="${link.id}" href="${link.url}"></li>`);
-    })
+      $($linksNode).append(`<li data-link="${link.id}" href="${link.url}"></li>`);
+    });
+
+    $($answerContent).append($linksNode);
   }
   // тут ссылки на файлы
+  console.log(files.length);
+  if (files.length) {
+    const $filesNode = $("<div class='answer-files'></div>");
+
+    files.forEach((file) => {
+      const $answerFile = $(`<p class='answer-file' data-file='${file.id}'></p>`);
+
+      $($answerFile).append(`<a href='/rails/active_storage/blobs/hz/${file.name}">${file.name}</a>`);
+      $($answerFile).append(`<a data-confirm="Are you sure?" class="ml-1" data-remote="true" rel="nofollow" data-method="delete" href="/attachments/${file.id}">(Delete)</a>`);
+
+      $($filesNode).append($answerFile);
+    });
+
+    $($answerContent).append($filesNode);
+  }
 
   $($answerContent).append(`<a class="choose-best-answer" data-remote="true" ref="nofollow" data-method="patch" href="/answers/${answer.id}/best">Choose as best answer</a><br><hr>`);
   $($answerContent).append("<a class='edit-answer-link' href='#'>Edit answer</a>");

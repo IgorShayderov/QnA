@@ -49,11 +49,11 @@ feature 'User can create answer to question', "
     scenario "answer appears at another user's page", js: true do
       Capybara.using_session('user') do
         sign_in(user)
-        visit questions_path
+        visit question_path(question)
       end
 
       Capybara.using_session('guest') do
-        visit questions_path
+        visit question_path(question)
       end
 
       Capybara.using_session('user') do
@@ -67,7 +67,7 @@ feature 'User can create answer to question', "
       end
 
       Capybara.using_session('guest') do
-        expect(page).to have_content 'Test question'
+        expect(page).to have_content 'My answer'
       end
     end
   end
