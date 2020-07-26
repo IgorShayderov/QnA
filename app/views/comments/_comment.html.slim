@@ -1,0 +1,6 @@
+.comment
+  p.comment-text = comment.body
+  hr
+  p.comment-info
+    span.comment-author = "User: #{comment.user.email}"
+    span.comment-time = comment.created_at.to_formatted_s(:long) 

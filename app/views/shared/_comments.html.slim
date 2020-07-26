@@ -1,0 +1,7 @@
+p Comments:
+.comments
+  = content_tag(:div, '', class: "comment-errors-for-#{resource_name(resource)}-#{resource.id}")
+
+  = render resource.comments
+
+  = render 'comments/form', commentable: resource

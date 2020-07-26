@@ -11,14 +11,6 @@ class AnswersController < ApplicationController
 
   def create
     @answer = @question.answers.create(answer_params.merge(author: current_user))
-
-    respond_to do |format|
-      if @answer.save
-        format.json { render json: { answer: @answer, is_author: current_user&.author_of?(@answer), links: @answer.links } }
-      else
-        format.json { render json: @answer.errors.full_messages, status: :unprocessable_entity }
-      end
-    end
   end
 
   def update
@@ -51,7 +43,8 @@ class AnswersController < ApplicationController
     ActionCable.server.broadcast("questions/#{@answer.question_id}/answers", {
                                    answer: @answer,
                                    is_author: current_user&.author_of?(@answer),
-                                   links: @answer.links
+                                   links: @answer.links,
+                                   files: @answer.files.to_a
                                  })
   end
 end

@@ -16,6 +16,7 @@ export default function(answer, is_author, links) {
     $($answerNode).append("<a class='vote-for vote-for-answer'></a>");
     $($answerNode).append("<a class='unvote unvote-answer'></a>");
     $($answerNode).append("<a class='vote-against vote-against-answer'></a>");
+    // как вложить что-то внутрь тега <a>?
   }
 
   if (links.length) {

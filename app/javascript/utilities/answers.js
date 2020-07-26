@@ -15,15 +15,6 @@ document.addEventListener('turbolinks:load', function (e) {
 
   $('form.new-answer')
   .on('ajax:success', (event) => {
-    const { answer, is_author, links } = event.detail[0];
-
-    createAnswer(answer, is_author, links);
-    // const textField = document.querySelector('#answer_body')
-    // console.log(textField);
-    // console.log(document.querySelector('#answer_body').value, 'value');
-    // textField.value = '!!!!!!!!';
-    // console.log(document.querySelector('#answer_body').value, 'after');
-    // textField.replaceWith($(textField).text('').clone(true));
   })
   .on('ajax:error', (event) => {
     const erorrs = event.detail[0];

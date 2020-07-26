@@ -1,0 +1,9 @@
+commentableName = '<%= resource_name(@commentable) %>';
+commentableId = '<%= @commentable.id %>';
+$commentableErrorsBlock = $(`.comment-errors-for-${commentableName}-${commentableId}`);
+
+$($commentableErrorsBlock).html('<%= render 'shared/errors', resource: @commentable %>');
+
+<% if @commentable.persisted? %>
+  $(`#new-comment-for-${commentableName}-${commentableId} #comment_body`).val('');
+<% end %>

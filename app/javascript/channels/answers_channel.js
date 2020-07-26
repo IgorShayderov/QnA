@@ -14,9 +14,9 @@ consumer.subscriptions.create(
       // Called when the subscription has been terminated by the server
     },
 
-    received({answer, is_author, links}) {
+    received({answer, is_author, links, files}) {
       // Called when there's incoming data on the websocket for this channel
-      createAnswer(answer, is_author, links);
+      createAnswer(answer, is_author, links, files);
     }
   }
 );
