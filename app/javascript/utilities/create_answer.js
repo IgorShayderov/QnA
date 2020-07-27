@@ -12,7 +12,7 @@ export default function(answer, author_id, links, files) {
 
   if (author_id === gon.user_id) {
     $($voteNode).append("<span>Votes:</span><span class='mr-2 ml-1 answer-votes-total'>0</span");
-  } else if (!is_author){
+  } else {
     $($answerNode).append("<a class='vote-for vote-for-answer'></a>");
     $($answerNode).append("<a class='unvote unvote-answer'></a>");
     $($answerNode).append("<a class='vote-against vote-against-answer'></a>");
