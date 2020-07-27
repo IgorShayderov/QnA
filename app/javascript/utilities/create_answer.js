@@ -1,4 +1,4 @@
-export default function(answer, author_id, links, files) {
+export default function(answer, links, files) {
   const $answerNode = $(document.createElement('li')).attr('data-answer-id', answer.id).addClass('answer');
   const $answerContent = $('<div></div>', { class: 'answer-content' });
 
@@ -10,7 +10,7 @@ export default function(answer, author_id, links, files) {
 
   const $voteNode = $('<div></div>', { class: 'answer-vote mr-2' });
 
-  if (author_id === gon.user_id) {
+  if (answer.user_id === gon.user_id) {
     $($voteNode).append("<span>Votes:</span><span class='mr-2 ml-1 answer-votes-total'>0</span");
   } else {
     $($answerNode).append("<a class='vote-for vote-for-answer'></a>");
