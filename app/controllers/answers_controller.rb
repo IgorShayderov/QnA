@@ -40,9 +40,11 @@ class AnswersController < ApplicationController
   end
 
   def publish_answer
+    return if @answer.errors.any?
+
     ActionCable.server.broadcast("questions/#{@answer.question_id}/answers", {
                                    answer: @answer,
-                                   is_author: current_user&.author_of?(@answer),
+                                   author_id: current_user.id,
                                    links: @answer.links,
                                    files: @answer.files.to_a
                                  })

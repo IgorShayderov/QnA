@@ -14,7 +14,8 @@ class QuestionsController < ApplicationController
 
   def show
     @answer = @question.answers.new
-    gon.push(question_id: @question.id)
+    gon.push({question_id: @question.id,
+              user_id: current_user.id})
   end
 
   def new
