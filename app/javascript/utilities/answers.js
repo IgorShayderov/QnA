@@ -1,3 +1,5 @@
+import createAnswer from './create_answer';
+
 document.addEventListener('turbolinks:load', function (e) {
   const $answers = $('.answers');
 
@@ -13,9 +15,6 @@ document.addEventListener('turbolinks:load', function (e) {
 
   $('form.new-answer')
   .on('ajax:success', (event) => {
-    const answer = event.detail[0];
-
-    $('.answers').append(`<p>${answer.body}</p>`);
   })
   .on('ajax:error', (event) => {
     const erorrs = event.detail[0];

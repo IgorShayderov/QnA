@@ -7,16 +7,10 @@ class AnswersController < ApplicationController
   before_action :get_question, only: %i[create]
   before_action :get_answer, only: %i[edit update destroy best]
 
+  after_action :publish_answer, only: %i[create]
+
   def create
     @answer = @question.answers.create(answer_params.merge(author: current_user))
-
-    respond_to do |format|
-      if @answer.save
-        format.json { render json: @answer }
-      else
-        format.json { render json: @answer.errors.full_messages, status: :unprocessable_entity }
-      end
-    end
   end
 
   def update
@@ -43,5 +37,15 @@ class AnswersController < ApplicationController
 
   def answer_params
     params.require(:answer).permit(:body, files: [], links_attributes: %i[id name url _destroy])
+  end
+
+  def publish_answer
+    return if @answer.errors.any?
+
+    ActionCable.server.broadcast("questions/#{@answer.question_id}/answers", {
+                                   answer: @answer,
+                                   links: @answer.links,
+                                   files: @answer.files.to_a
+                                 })
   end
 end

@@ -29,6 +29,8 @@
                             remote: true,
                             class: 'ml-1'
 
+        = render 'shared/comments', resource: answer
+
         - if current_user&.author_of?(@question)
           = link_to 'Choose as best answer',
                     best_answer_path(id: answer.id),
@@ -52,22 +54,7 @@
             br
             = form.submit 'Edit the answer', class: 'mt-2 btn btn-primary'
 
-            p Links:
-            .links
-              = form.fields_for :links do |link|
-                = link.label :name, 'Link name:'
-                br
-                = link.text_field :name
-                br
-                = link.label :url, 'Link url:'
-                br
-                = link.text_field :url
-                br
-                = link.label :_destroy, 'Remove link?', class: 'mr-2'
-                = link.check_box :_destroy, class: 'destroy_link'
-                br
-              = link_to_add_association 'Add link', form, :links, partial: 'shared/link_fields'
-              br
+            = render 'shared/links', form: form
           br
 
           = link_to 'Delete answer',

@@ -12,16 +12,12 @@ RSpec.describe AnswersController, type: :controller do
 
   describe 'POST #create' do
     before do
-      post :create, params: { answer: attributes_for(:answer), question_id: question, format: :json }
+      post :create, params: { answer: attributes_for(:answer), question_id: question, format: :js }
     end
 
     context 'with valid attributes' do
       it 'saves a new answer in the database' do
         expect { post :create, params: { answer: attributes_for(:answer), question_id: question } }.to change(question.answers, :count).by(1)
-      end
-
-      it 'response includes answer body' do
-        expect(response.body).to include(answer.body)
       end
 
       it 'belongs to the user who has created it' do
@@ -37,8 +33,7 @@ RSpec.describe AnswersController, type: :controller do
       it 'renders create template' do
         post :create, params: { answer: attributes_for(:answer, :invalid), question_id: question }
 
-        expect(response.content_type).to include('application/json')
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to render_template :create
       end
     end
   end

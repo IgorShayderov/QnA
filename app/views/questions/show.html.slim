@@ -30,6 +30,8 @@
         - else
           li = link_to link.name, link.url, data: { link: link.id }
 
+    = render 'shared/comments', resource: @question
+
     - if current_user&.author_of?(@question)
       hr
       = link_to 'Edit question', '#', class: 'edit-question-link'
@@ -77,5 +79,6 @@
 ul.answers
   = render Answer.with_attached_files.sorted_answers(@question)
 
-.new-answer
-  = render 'answers/form'
+- if user_signed_in?
+  .new-answer
+    = render 'answers/form'

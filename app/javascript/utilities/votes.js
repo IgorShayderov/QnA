@@ -4,15 +4,15 @@ document.addEventListener('turbolinks:load', function (e) {
   if (question.length) {
     $('.vote-for')
     .on('ajax:success', handleVoteSuccess)
-    .on('ajax:error', handleVoteError)
+    .on('ajax:error', handleVoteError);
 
     $('.unvote')
     .on('ajax:success', handleVoteSuccess)
-    .on('ajax:error', handleVoteError)
+    .on('ajax:error', handleVoteError);
 
     $('.vote-against')
     .on('ajax:success', handleVoteSuccess)
-    .on('ajax:error', handleVoteError)
+    .on('ajax:error', handleVoteError);
   }
 });
 

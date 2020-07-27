@@ -22,7 +22,6 @@ feature 'User can add links to the answers', "
     click_on 'Answer the question'
     page.driver.browser.navigate.refresh
 
-
     within '.answers' do
       expect(page).to have_link 'Google', href: google_url
     end

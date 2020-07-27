@@ -7,7 +7,6 @@ feature 'User can vote for answer', "
   As an authenticated User
   I'd like to be able to vote for liked answers
 " do
-
   given!(:user) { create(:user) }
   given!(:other_user) { create(:user) }
   given!(:question) { create(:question, author: user) }
