@@ -30,6 +30,7 @@
         - else
           li = link_to link.name, link.url, data: { link: link.id }
 
+    - if user_signed_in?
     = render 'shared/comments', resource: @question
 
     - if current_user&.author_of?(@question)
