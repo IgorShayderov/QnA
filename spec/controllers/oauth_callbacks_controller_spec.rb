@@ -6,12 +6,13 @@ RSpec.describe OauthCallbacksController, type: :controller do
   end
 
   describe 'Github' do
-    let(:oauth_data) { { 'provied' => 'github', 'uid' => 123 } }
+    let(:oauth_data) { { 'provider' => 'github', 'uid' => 123 } }
 
     it 'finds user from oauth data' do
       allow(request.env).to receive(:[]).and_call_original
       allow(request.env).to receive(:[]).with('omniauth.auth').and_return(oauth_data)
-      expect(User).to receive(:find_for_oauth).with(oauth_data )
+
+      expect(User).to receive(:find_for_oauth).with(oauth_data)
       get :github
     end
 
@@ -38,7 +39,7 @@ RSpec.describe OauthCallbacksController, type: :controller do
         get :github
       end
 
-      it "redirects to root path" do
+      it 'redirects to root path' do
         expect(response).to redirect_to root_path
       end
 
@@ -46,5 +47,20 @@ RSpec.describe OauthCallbacksController, type: :controller do
         expect(subject.current_user).to_not be
       end
     end
+  end
+
+  describe 'vkontake' do
+    let(:oauth_data) { { 'provider' => 'vkontakte', 'uid' => 123 } }
+
+    it 'finds user from auth data' do
+      allow(request.env).to receive(:[]).and_call_original
+      allow(request.env).to receive(:[]).with('omniauth.auth').and_return(oauth_data)
+
+      expect(User).to receive(:find_for_oauth).with(oauth_data)
+      get :vkontakte
+    end
+
+    context 'user exists'
+    context "user doesn't exists"
   end
 end

@@ -8,7 +8,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '99cfb57f766294a34ca8986616422343075ab27f38cd9d30f3ba75d683a90df247cd858cf7d031edad7f66a24a9e1b185325b98b43b40523142920eb734a1a3a'
+  # config.secret_key = '3161c7b69ec4cdbcdc73c2c7a07fc23883c98a9b638b1ec13b8cd980eb0f9555df11204f9bbe25253f2dff42ce9984b40389d82b72b906b8ae8cf92e9ec20425'
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -114,7 +114,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 11
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = 'ee60e9025a13025148cb48e058c780b7a2af2a843cd7b058a50296390be8216744921fa18a0fd7b52f591c387bde2e53ad2b6d1b56cdca0491bbbe776b3fc0fc'
+  # config.pepper = '91dadbcf9465812490d71b298384978af30b929fbdfd0af38e11fc5d36fcffe6c986973688d4b43d159b16efdc6494961b59be0be92af7eab787a0aa5b8d2fb4'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
@@ -145,7 +145,7 @@ Devise.setup do |config|
   # initial account confirmation) to be applied. Requires additional unconfirmed_email
   # db field (see migrations). Until confirmed, new email is stored in
   # unconfirmed_email column, and copied to email column on successful confirmation.
-  config.reconfirmable = true
+  config.reconfirmable = false
 
   # Defines which key will be used when confirming an account
   # config.confirmation_keys = [:email]
@@ -259,10 +259,16 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
+  # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   config.omniauth :github,
-                  Rails.application.credentials[Rails.env.to_sym][:github][:app_id],
-                  Rails.application.credentials[Rails.env.to_sym][:github][:app_secret],
-                  scope: 'user:email, read:user'
+    Rails.application.credentials[Rails.env.to_sym][:github][:app_id],
+    Rails.application.credentials[Rails.env.to_sym][:github][:app_secret],
+    scope: 'user:email, read:user'
+
+  config.omniauth :vkontakte,
+    Rails.application.credentials[Rails.env.to_sym][:vkontakte][:app_id],
+    Rails.application.credentials[Rails.env.to_sym][:vkontakte][:app_secret],
+    scope: 'email'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
