@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # frozen_strong_literal: true
 
 class FindForOauth
@@ -26,16 +28,16 @@ class FindForOauth
 
   def find_or_create_user
     @user =
-    if email
-      User.find_by(email: email) ||
-        User.create(
-          email: email,
-          password: password,
-          password_confirmation: password
-        )
-    else
-      User.new
-    end
+      if email
+        User.find_by(email: email) ||
+          User.create(
+            email: email,
+            password: password,
+            password_confirmation: password
+          )
+      else
+        User.new
+      end
   end
 
   def email

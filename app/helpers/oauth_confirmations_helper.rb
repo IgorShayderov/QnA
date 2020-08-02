@@ -1,0 +1,2 @@
+module OauthConfirmationsHelper
+end

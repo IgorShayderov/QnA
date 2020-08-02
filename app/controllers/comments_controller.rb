@@ -40,12 +40,12 @@ class CommentsController < ApplicationController
     question_id = @commentable[:question_id] || @commentable[:id]
 
     ActionCable.server.broadcast("questions/#{question_id}/comments", {
-                                template: ApplicationController.render(
-                                          partial: 'comments/comment',
-                                          locals: { comment: @comment }
-                                          ),
-                                resource_name: commentable_class_str,
-                                resource_id: @commentable.id
-                                })
+                                   template: ApplicationController.render(
+                                     partial: 'comments/comment',
+                                     locals: { comment: @comment }
+                                   ),
+                                   resource_name: commentable_class_str,
+                                   resource_id: @commentable.id
+                                 })
   end
 end

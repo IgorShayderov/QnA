@@ -18,14 +18,11 @@ class OauthCallbacksController < Devise::OmniauthCallbacksController
       sign_in_and_redirect @user, event: :authentication
       set_flash_message(:notice, :success, kind: action_name.capitalize) if is_navigational_format?
     elsif @user.new_record?
-      complete_registartion
+      session['devise.oauth_uid'] = auth.uid
+      session['devise.oauth_provider'] = auth.provider
+      render :request_email
     else
       redirect_to root_path, alert: 'Something went wrong'
     end
   end
-
-  def complete_registartion
-    
-  end
 end
-
