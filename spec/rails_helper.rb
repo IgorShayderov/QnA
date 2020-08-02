@@ -37,6 +37,7 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include ControllerHelpers, type: :controller
   config.include FeatureHelpers, type: :feature
+  config.include OmniAuthHelpers, type: :feature
 
   Capybara.javascript_driver = :selenium_chrome_headless
   Capybara.default_max_wait_time = 5
@@ -82,3 +83,5 @@ RSpec.configure do |config|
     FileUtils.rm_rf("#{Rails.root}/tmp/storage")
   end
 end
+
+OmniAuth.config.test_mode = true
