@@ -1,5 +1,11 @@
-class OauthConfirmationsController < ApplicationController
+# frozen_string_literal: true
+
+class OauthConfirmationsController < Devise::ConfirmationsController
   def new; end
+
+  def show
+    super
+  end
 
   def create
     password = Devise.friendly_token[0, 20]
@@ -18,7 +24,7 @@ class OauthConfirmationsController < ApplicationController
 
   def after_confirmation_path_for(resource_name, user)
     user.authorizations.create(provider: session['devise.oauth_provider'], uid: session['devise.oauth_uid'])
-    signed_in_root_path(@user)
+    signed_in_root_path(user)
   end
 
   def oauth_confirmation_params

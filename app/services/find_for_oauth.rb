@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# frozen_strong_literal: true
-
 class FindForOauth
   attr_reader :auth
 
@@ -15,8 +13,10 @@ class FindForOauth
 
     find_or_create_user
 
-    @user.authorizations.create!(auth_params) if @user.persisted?
-    @user.skip_confirmation! unless @user.confirmed?
+    if @user.persisted?
+      @user.authorizations.create!(auth_params)
+      @user.confirm unless @user.confirmed?
+    end
     @user
   end
 
@@ -28,7 +28,7 @@ class FindForOauth
 
   def find_or_create_user
     @user =
-      if email
+      if !email.blank?
         User.find_by(email: email) ||
           User.create(
             email: email,
