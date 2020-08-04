@@ -38,3 +38,6 @@ yarn-debug.log*
 
 # Ignore secret information
 .env
+
+# local options
+/.idea
