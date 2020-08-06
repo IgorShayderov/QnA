@@ -13,7 +13,7 @@
           - else
             li = link_to link.name, link.url, data: { link: link.id }
 
-      - if user_signed_in?
+      - if can?(:create, Answer)
         - if answer.files.attached?
 
           .answer-files
@@ -21,7 +21,7 @@
               p.answer-file data-file=file.id
                 = link_to file.filename.to_s, url_for(file)
 
-                - if current_user&.author_of?(answer)
+                - if can?(:destroy, Answer)
                   = link_to '(Delete)',
                             attachment_path(id: file.id),
                             method: :delete,
@@ -31,7 +31,7 @@
 
         = render 'shared/comments', resource: answer
 
-        - if current_user&.author_of?(@question)
+        - if can?(:best, Answer)
           = link_to 'Choose as best answer',
                     best_answer_path(id: answer.id),
                     method: :patch,
@@ -39,7 +39,7 @@
                     class: 'choose-best-answer'
           br
 
-        - if current_user&.author_of?(answer)
+        - if can?(:edit, Answer)
           hr
           = link_to 'Edit answer', '#', class: 'edit-answer-link'
 
@@ -57,6 +57,7 @@
             = render 'shared/links', form: form
           br
 
+        - if can?(:destroy, Answer)
           = link_to 'Delete answer',
                       answer_path(answer),
                       method: :delete,

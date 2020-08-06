@@ -20,8 +20,9 @@ RSpec.describe Ability, type: :model do
   end
 
   describe 'for user' do
-    let(:user) { create(:user) }
+    let!(:user) { create(:user) }
     let(:other_user) { create(:user) }
+    let(:question) { create(:question, author: user) }
 
     it { should_not be_able_to :manage, :all }
     it { should be_able_to :read, :all }
@@ -30,11 +31,11 @@ RSpec.describe Ability, type: :model do
     it { should be_able_to :create, Answer }
     it { should be_able_to :create, Comment }
 
-    it { should be_able_to :update, create(:question, author: user) }
+    it { should be_able_to :update, question }
     it { should_not be_able_to :update, create(:question, author: other_user) }
 
-    it { should be_able_to :update, create(:answer, question: create(:question, author: user), author: user) }
-    it { should_not be_able_to :update, create(:answer, question: create(:question, author: user), author: other_user) }
+    it { should be_able_to :update, create(:answer, question: question, author: user) }
+    it { should_not be_able_to :update, create(:answer, question: question, author: other_user) }
 
     it { should be_able_to :update, create(:comment, user: user) }
     it { should_not be_able_to :update, create(:comment, user: other_user) }

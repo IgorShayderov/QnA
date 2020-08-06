@@ -22,7 +22,7 @@ class Ability
   def user_abilities
     guest_abilities
     can :create, [Question, Answer, Comment]
-    can :update, [Question, Answer, Comment], author: @user
-    can :destroy, [Question, Answer, Comment], author: @user
+    can %i[update destroy], [Question, Answer, Comment], user_id: @user.id
+    can :best, Answer, user_id: @user.id
   end
 end

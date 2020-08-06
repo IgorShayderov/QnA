@@ -10,12 +10,11 @@
 
     - if @question.files.attached?
       .question-files
-
         - @question.files.each do |file|
           p.question-file data-file=file.id
             = link_to file.filename.to_s, url_for(file)
 
-            - if current_user&.author_of?(@question)
+            - if can?(:destroy, Question)
               = link_to '(Delete)',
                           attachment_path(id: file.id),
                           method: :delete,
@@ -30,10 +29,10 @@
         - else
           li = link_to link.name, link.url, data: { link: link.id }
 
-    - if user_signed_in?
+    - if can?(:create, Comment)
     = render 'shared/comments', resource: @question
 
-    - if current_user&.author_of?(@question)
+    - if can?(:update, Question)
       hr
       = link_to 'Edit question', '#', class: 'edit-question-link'
 
@@ -80,6 +79,6 @@
 ul.answers
   = render Answer.with_attached_files.sorted_answers(@question)
 
-- if user_signed_in?
+- if can?(:create, Answer)
   .new-answer
     = render 'answers/form'
