@@ -14,7 +14,7 @@
           p.question-file data-file=file.id
             = link_to file.filename.to_s, url_for(file)
 
-            - if can?(:destroy, Question)
+            - if can?(:destroy, @question)
               = link_to '(Delete)',
                           attachment_path(id: file.id),
                           method: :delete,
@@ -32,7 +32,7 @@
     - if can?(:create, Comment)
     = render 'shared/comments', resource: @question
 
-    - if can?(:update, Question)
+    - if can?(:update, @question)
       hr
       = link_to 'Edit question', '#', class: 'edit-question-link'
 

@@ -3,10 +3,6 @@
 class OauthConfirmationsController < Devise::ConfirmationsController
   def new; end
 
-  def show
-    super
-  end
-
   def create
     password = Devise.friendly_token[0, 20]
     @user = User.new(oauth_confirmation_params.merge(password: password, password_confirmation: password))

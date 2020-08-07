@@ -1,4 +1,4 @@
-- if user_signed_in?
+- if can?(:create, Question)
   nav.ml-2
     span.mr-1
       = link_to 'All questions', questions_path

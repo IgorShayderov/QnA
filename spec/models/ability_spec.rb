@@ -33,11 +33,17 @@ RSpec.describe Ability, type: :model do
 
     it { should be_able_to :update, question }
     it { should_not be_able_to :update, create(:question, author: other_user) }
-
     it { should be_able_to :update, create(:answer, question: question, author: user) }
     it { should_not be_able_to :update, create(:answer, question: question, author: other_user) }
 
-    it { should be_able_to :update, create(:comment, user: user) }
-    it { should_not be_able_to :update, create(:comment, user: other_user) }
+    it { should be_able_to :best, create(:answer, question: question, author: user) }
+    it { should_not be_able_to :best, create(:answer, question: question, author: other_user) }
+
+    it { should_not be_able_to :vote_for, create(:answer, question: question, author: user) }
+    it { should be_able_to :vote_for, create(:answer, question: question, author: other_user) }
+    it { should_not be_able_to :vote_against, create(:answer, question: question, author: user) }
+    it { should be_able_to :vote_against, create(:answer, question: question, author: other_user) }
+    it { should_not be_able_to :unvote, create(:answer, question: question, author: user) }
+    it { should be_able_to :unvote, create(:answer, question: question, author: other_user) }
   end
 end

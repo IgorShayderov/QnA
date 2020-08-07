@@ -1,6 +1,6 @@
 = content_tag :div, class: "#{resource_name(resource)}-vote mr-2"
 
-  - if user_signed_in? && !current_user&.author_of?(@question)
+  - if can?(:vote_for, resource)
     = link_to polymorphic_path(resource, action: :vote_for),
               class: "vote-for vote-for-#{resource_name(resource)}",
               method: :post,
