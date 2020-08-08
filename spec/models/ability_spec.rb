@@ -49,19 +49,11 @@ RSpec.describe Ability, type: :model do
 
     describe 'unvote' do
       let(:vote) { create(:vote, user: user) }
+      let(:other_vote) { create(:vote, user: other_user) }
 
-      before { question.votes.update(vote) }
-
-      it 'hz' do
-        p question.votes
-        p user
-      end
-
-      it { should be_able_to :unvote, question }
-      it { should_not be_able_to :unvote, other_question }
+      it { should be_able_to :unvote, vote }
+      it { should_not be_able_to :unvote, other_vote }
     end
-
-
 
     describe 'attachments' do
       before do
