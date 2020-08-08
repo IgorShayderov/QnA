@@ -21,8 +21,11 @@ RSpec.describe Ability, type: :model do
 
   describe 'for user' do
     let!(:user) { create(:user) }
-    let(:other_user) { create(:user) }
-    let(:question) { create(:question, author: user) }
+    let!(:other_user) { create(:user) }
+    let!(:question) { create(:question, author: user) }
+    let!(:other_question) { create(:question, author: other_user) }
+    let!(:answer) { create(:answer, question: question, author: user) }
+    let!(:other_answer) { create(:answer, question: question, author: other_user) }
 
     it { should_not be_able_to :manage, :all }
     it { should be_able_to :read, :all }
@@ -32,18 +35,50 @@ RSpec.describe Ability, type: :model do
     it { should be_able_to :create, Comment }
 
     it { should be_able_to :update, question }
-    it { should_not be_able_to :update, create(:question, author: other_user) }
-    it { should be_able_to :update, create(:answer, question: question, author: user) }
-    it { should_not be_able_to :update, create(:answer, question: question, author: other_user) }
+    it { should_not be_able_to :update, other_question }
+    it { should be_able_to :update, question }
+    it { should_not be_able_to :update, other_question }
 
-    it { should be_able_to :best, create(:answer, question: question, author: user) }
-    it { should_not be_able_to :best, create(:answer, question: question, author: other_user) }
+    it { should be_able_to :best, answer }
+    it { should_not be_able_to :best, other_answer }
 
-    it { should_not be_able_to :vote_for, create(:answer, question: question, author: user) }
-    it { should be_able_to :vote_for, create(:answer, question: question, author: other_user) }
-    it { should_not be_able_to :vote_against, create(:answer, question: question, author: user) }
-    it { should be_able_to :vote_against, create(:answer, question: question, author: other_user) }
-    it { should_not be_able_to :unvote, create(:answer, question: question, author: user) }
-    it { should be_able_to :unvote, create(:answer, question: question, author: other_user) }
+    it { should_not be_able_to :vote_for, answer }
+    it { should be_able_to :vote_for, other_answer }
+    it { should_not be_able_to :vote_against, answer }
+    it { should be_able_to :vote_against, other_answer }
+
+    describe 'unvote' do
+      let(:vote) { create(:vote, user: user) }
+
+      before { question.votes.update(vote) }
+
+      it 'hz' do
+        p question.votes
+        p user
+      end
+
+      it { should be_able_to :unvote, question }
+      it { should_not be_able_to :unvote, other_question }
+    end
+
+
+
+    describe 'attachments' do
+      before do
+        question.files.attach(create_file_blob)
+        other_question.files.attach(create_file_blob)
+      end
+
+      it { should be_able_to :destroy, question.files.first }
+      it { should_not be_able_to :destroy, other_question.files.first }
+    end
+
+    describe 'links' do
+      let(:link) { build(:link, linkable: question) }
+      let(:other_link) { build(:link, linkable: other_question) }
+
+      it { should be_able_to :destroy, link }
+      it { should_not be_able_to :destroy, other_link }
+    end
   end
 end

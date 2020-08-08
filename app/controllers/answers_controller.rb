@@ -6,7 +6,6 @@ class AnswersController < ApplicationController
   before_action :authenticate_user!
   before_action :get_question, only: %i[create]
   before_action :get_answer, only: %i[edit update destroy best]
-
   after_action :publish_answer, only: %i[create]
 
   authorize_resource
