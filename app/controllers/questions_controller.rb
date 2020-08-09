@@ -7,13 +7,13 @@ class QuestionsController < ApplicationController
   before_action :get_question, only: %i[show edit update destroy]
   after_action :publish_question, only: %i[create]
 
-  authorize_resource
-
   def index
+    authorize! :index, Question
     @questions = Question.all
   end
 
   def show
+    authorize! :show, Question
     @answer = @question.answers.new
     gon.push({ question_id: @question.id,
                user_id: user_signed_in? ? current_user.id : 0 })
@@ -21,12 +21,14 @@ class QuestionsController < ApplicationController
 
   def new
     @question = Question.new
+    authorize! :new, @question
     @question.build_reward
   end
 
   def edit; end
 
   def create
+    authorize! :create, Question
     @question = current_user.questions.new(question_params)
 
     if @question.save
@@ -37,10 +39,12 @@ class QuestionsController < ApplicationController
   end
 
   def update
+    authorize! :update, @question
     @question.update(question_params) if current_user&.author_of?(@question)
   end
 
   def destroy
+    authorize! :destroy, @question
     if current_user&.author_of?(@question)
       @question.destroy
       redirect_to questions_path

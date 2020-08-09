@@ -15,8 +15,8 @@ module Votable
     make_vote(user, -1)
   end
 
-  def unvote(user)
-    votes.where(user: user).destroy_all
+  def unvote(vote)
+    vote.destroy
   end
 
   def votes_total

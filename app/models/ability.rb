@@ -27,9 +27,6 @@ class Ability
     can %i[vote_for vote_against], [Question, Answer]
     cannot %i[vote_for vote_against], [Question, Answer], user_id: @user.id
     can :unvote, Vote, user_id: @user.id
-    can :unvote, [Question, Answer] do |votable|
-      votable.votes.where(user_id: @user.id)
-    end
     can :destroy, ActiveStorage::Attachment, record: { user_id: @user.id }
     can :destroy, Link, linkable: { user_id: @user.id }
   end
