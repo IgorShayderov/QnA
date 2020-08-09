@@ -8,24 +8,25 @@ module Voted
   end
 
   def vote_for
-    unless current_user&.author_of?(@votable)
-      @votable.vote_for(current_user)
-      make_respond
-    end
+    authorize! :vote_for, @votable
+
+    @votable.vote_for(current_user)
+    make_respond
   end
 
   def vote_against
-    unless current_user&.author_of?(@votable)
-      @votable.vote_against(current_user)
-      make_respond
-    end
+    authorize! :vote_against, @votable
+
+    @votable.vote_against(current_user)
+    make_respond
   end
 
   def unvote
-    unless current_user&.author_of?(@votable)
-      @votable.unvote(current_user)
-      make_respond
-    end
+    vote = @votable.votes.where(user: current_user).first
+    authorize! :unvote, vote
+
+    @votable.unvote(vote)
+    make_respond
   end
 
   private

@@ -6,22 +6,25 @@ class AnswersController < ApplicationController
   before_action :authenticate_user!
   before_action :get_question, only: %i[create]
   before_action :get_answer, only: %i[edit update destroy best]
-
   after_action :publish_answer, only: %i[create]
 
   def create
+    authorize! :create, Answer
     @answer = @question.answers.create(answer_params.merge(author: current_user))
   end
 
   def update
+    authorize! :update, @answer
     @answer.update(answer_params) if current_user&.author_of?(@answer)
   end
 
   def destroy
+    authorize! :destroy, @answer
     @answer.destroy if current_user&.author_of?(@answer)
   end
 
   def best
+    authorize! :best, @answer
     @answer.make_best if current_user&.author_of?(@answer.question)
   end
 

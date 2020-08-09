@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ControllerHelpers
+module ActiveStorageHelpers
   def create_file_blob(
     filename: 'alphabet.jpg',
     content_type: 'image/jpg'

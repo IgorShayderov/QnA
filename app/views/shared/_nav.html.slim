@@ -1,4 +1,4 @@
-- if user_signed_in?
+- if can?(:create, Question)
   nav.ml-2
     span.mr-1
       = link_to 'All questions', questions_path
@@ -12,3 +12,6 @@
 
     span
       = link_to 'Sign out', destroy_user_session_path, method: :delete
+- else
+  span.ml-2
+    = link_to 'Sign in', new_user_session_path
