@@ -1,9 +1,21 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  use_doorkeeper
+
   devise_for :users, controllers: { omniauth_callbacks: 'oauth_callbacks', confirmations: 'oauth_confirmations' }
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root to: 'questions#index'
+
+  namespace :api do
+    namespace :v1 do
+      resources :profiles, only: [] do
+        get :me, on: :collection
+      end
+
+      resources :questions, only: %i[index]
+    end
+  end
 
   resources :attachments, only: %i[destroy]
   resources :rewards, only: %i[index]

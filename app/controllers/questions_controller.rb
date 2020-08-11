@@ -40,17 +40,13 @@ class QuestionsController < ApplicationController
 
   def update
     authorize! :update, @question
-    @question.update(question_params) if current_user&.author_of?(@question)
+    @question.update(question_params)
   end
 
   def destroy
     authorize! :destroy, @question
-    if current_user&.author_of?(@question)
-      @question.destroy
-      redirect_to questions_path
-    else
-      redirect_to question_path(@question)
-    end
+    @question.destroy
+    redirect_to questions_path
   end
 
   private
