@@ -1,5 +1,5 @@
 class Api::V1::QuestionsController < Api::V1::BaseController
-  skip_authorization_check
+  authorize_resource
 
   def index
     @questions = Question.all
@@ -8,6 +8,7 @@ class Api::V1::QuestionsController < Api::V1::BaseController
 
   def show
     @question = Question.with_attached_files.find(params[:id])
+
     render json: @question
   end
 end
