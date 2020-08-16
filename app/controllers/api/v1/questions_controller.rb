@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::V1::QuestionsController < Api::V1::BaseController
   before_action :set_question, only: %i[update destroy]
   authorize_resource
@@ -27,7 +29,7 @@ class Api::V1::QuestionsController < Api::V1::BaseController
     if @question.update(question_params)
       render json: @question, status: :accepted
     else
-      render json: { errors: @question.errors }, status: :unproccessable_entity
+      render json: { errors: @question.errors }, status: :unprocessable_entity
     end
   end
 
@@ -35,7 +37,7 @@ class Api::V1::QuestionsController < Api::V1::BaseController
     if @question.destroy
       render json: {}, status: :ok
     else
-      render json: { errors: @question.errors }, status: :uproccessable_entity
+      render json: { errors: @question.errors }, status: :unprocessable_entity
     end
   end
 

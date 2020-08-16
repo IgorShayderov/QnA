@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 shared_examples_for 'resource comments' do
   let(:comment) { comments.first }
   let(:comment_response) { resource_response['comments'].last }

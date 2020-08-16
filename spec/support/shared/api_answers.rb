@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 shared_examples_for 'test answer attributes' do
   it 'returns all public fields' do
     %w[id body created_at updated_at].each do |attr|

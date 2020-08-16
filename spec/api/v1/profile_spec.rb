@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'Profiles API', type: :request do
@@ -59,7 +61,7 @@ describe 'Profiles API', type: :request do
       end
 
       it 'does not returns private fields for each profile' do
-        profiles.each_with_index do |profile, index|
+        profiles.each_with_index do |_profile, index|
           %w[password encrypted_password].each do |attr|
             expect(json[index]).to_not have_key(attr)
           end

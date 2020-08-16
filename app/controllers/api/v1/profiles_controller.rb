@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::V1::ProfilesController < Api::V1::BaseController
   # authorize_resource class: User
   skip_authorization_check
