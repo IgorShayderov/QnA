@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 shared_examples_for 'invalid params' do
   it 'returns 400 status' do
     expect(response).to_not be_successful

@@ -15,7 +15,7 @@ class Api::V1::AnswersController < Api::V1::BaseController
   end
 
   def create
-    @answer = @question.answers.new(answer_params)
+    @answer = @question.answers.new(answer_params.merge(author: current_resource_owner))
 
     if @answer.save
       render json: @answer, status: :created

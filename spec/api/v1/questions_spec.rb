@@ -66,49 +66,11 @@ describe 'Questions API', type: :request do
       let(:method) { :post }
     end
 
-    context 'authorized' do
-      context 'valid params' do
-        let(:question_response) { json['question'] }
-        let(:question_params) { { title: 'Question title', body: 'question body' } }
-
-        before do
-          post api_path, params:
-        { access_token: access_token.token, question: question_params },
-                         headers: headers
-        end
-
-        it 'returns 200 status' do
-          expect(response).to be_successful
-        end
-
-        it 'returned object contains transmitted params' do
-          question_params.each do |param_key, param_value|
-            expect(question_response[param_key.to_s]).to eq param_value
-          end
-        end
-
-        it 'creates question' do
-          expect { post api_path, params:
-          { access_token: access_token.token, question: question_params },
-                           headers: headers }.to change(Question, :count).by(1)
-        end
-      end
-
-      context 'with invalid params' do
-        let(:invalid_params) { { title: '' } }
-
-        before do
-          post api_path, params:
-        { access_token: access_token.token, question: invalid_params },
-                         headers: headers
-        end
-
-        it_behaves_like 'invalid params'
-
-        it 'does not create question' do
-          expect { response }.to_not change(Question, :count)
-        end
-      end
+    it_behaves_like 'create resource' do
+      let(:resource_params) { { title: 'Question title', body: 'question body' } }
+      let(:resource_response) { json['question'] }
+      let(:resource) { question }
+      let(:invalid_params) { { title: '' } }
     end
   end
 
@@ -119,44 +81,13 @@ describe 'Questions API', type: :request do
       let(:method) { :put }
     end
 
-    context 'authorized' do
-      context 'valid params' do
-        let(:question_params) { { title: 'Question title', body: 'question body' } }
-        let(:question_response) { json['question'] }
-
-        before do
-          put api_path, params:
-        { access_token: access_token.token, question: question_params },
-                        headers: headers
-        end
-
-        it 'returns 200 status' do
-          expect(response).to be_successful
-        end
-
-        it 'returned object contains transmitted params' do
-          question_params.each do |param_key, param_value|
-            expect(question_response[param_key.to_s]).to eq param_value
-          end
-        end
-      end
-
-      context 'invalid params' do
-        let(:invalid_params) { { title: '' } }
-        let(:question_title) { question.title }
-
-        before do
-          put api_path, params:
-        { access_token: access_token.token, question: invalid_params },
-                        headers: headers
-        end
-
-        it_behaves_like 'invalid params'
-
-        it 'does not change question title after request' do
-          expect(question.title).to be question_title
-        end
-      end
+    it_behaves_like 'update resource' do
+      let(:resource_params) { { title: 'Question title', body: 'question body' } }
+      let(:resource_response) { json['question'] }
+      let(:resource) { question }
+      let(:saved_attribute) { question.title }
+      let(:invalid_params) { { title: '' } }
+      let(:param_for_updating) { :title }
     end
   end
 
@@ -168,16 +99,8 @@ describe 'Questions API', type: :request do
       let(:method) { :delete }
     end
 
-    context 'authorized' do
-      it 'returns 200 status' do
-        delete api_path, params: { access_token: access_token.token }, headers: headers
-
-        expect(response).to be_successful
-      end
-
-      it 'deletes question' do
-        expect { delete api_path, params: { access_token: access_token.token }, headers: headers }.to change(Question, :count).by(-1)
-      end
+    it_behaves_like 'delete resource' do
+      let(:resource) { question }
     end
   end
 end
