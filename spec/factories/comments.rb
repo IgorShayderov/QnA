@@ -5,7 +5,7 @@ FactoryBot.define do
     for_question
 
     body { 'Comment' }
-    association :author, factory: :user
+    association :user
 
     trait :for_question do
       association :commentable, factory: :question

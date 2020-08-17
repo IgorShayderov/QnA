@@ -77,40 +77,11 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'PATCH #update', js: true do
-    context 'with valid attributes' do
-      it 'assigns the requsted question to @question' do
-        patch :update, params: { id: question, question: attributes_for(:question), format: :js }
-        expect(assigns(:question)).to eq question
-      end
-      it 'changes question attributes' do
-        patch :update, params: { id: question, question: { title: 'new title', body: 'new body' }, format: :js }
-        question.reload
-
-        expect(question.title).to eq 'new title'
-        expect(question.body).to eq 'new body'
-      end
-      it 'renders update template' do
-        patch :update, params: { id: question, question: attributes_for(:question), format: :js }
-        expect(response).to render_template :update
-      end
-    end
-
-    context 'with invalid attributes' do
-      before { patch :update, params: { id: question, question: attributes_for(:question, :invalid), format: :js } }
-      let!(:question_before_update) { question }
-
-      it 'does not change question' do
-        patch :update, params: { id: question, question: attributes_for(:question, :invalid), format: :js }
-        question.reload
-
-        expect(question.title).to eq question_before_update.title
-        expect(question.body).to eq question_before_update.body
-      end
-      it 'renders update template' do
-        patch :update, params: { id: question, question: attributes_for(:question, :invalid), format: :js }
-
-        expect(response).to render_template :update
-      end
+    it_behaves_like 'update resource in controller' do
+      let(:resource) { question }
+      let(:resource_name) { resource.class.name.underscore }
+      let(:resource_attributes) { %i[title body] }
+      let(:resource_params) { { title: 'new title', body: 'new body' } }
     end
   end
 

@@ -12,3 +12,7 @@ module ActiveStorageHelpers
     )
   end
 end
+
+RSpec.configure do |config|
+  config.include ActiveStorageHelpers
+end

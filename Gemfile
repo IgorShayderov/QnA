@@ -50,6 +50,12 @@ gem 'devise'
 gem 'rubocop', require: false
 # authorization
 gem 'cancancan'
+# OAuth through our application
+gem 'doorkeeper'
+# Serializer
+gem 'active_model_serializers', '~> 0.10'
+# JSON serializer
+gem 'oj'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

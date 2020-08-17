@@ -39,42 +39,11 @@ RSpec.describe AnswersController, type: :controller do
   end
 
   describe 'PATCH #update' do
-    context 'with valid attributes' do
-      it 'assigns the requsted answer to @answer' do
-        patch :update, params: { id: answer, answer: attributes_for(:answer), format: :js }
-
-        expect(assigns(:answer)).to eq answer
-      end
-
-      it 'changes answer attributes' do
-        patch :update, params: { id: answer, answer: { body: 'new body' } }, format: :js
-        answer.reload
-
-        expect(answer.body).to eq 'new body'
-      end
-
-      it 'renders update template' do
-        patch :update, params: { id: answer, answer: attributes_for(:answer), format: :js }
-
-        expect(response).to render_template :update
-      end
-    end
-
-    context 'with invalid attributes' do
-      before { patch :update, params: { id: answer, answer: attributes_for(:answer, :invalid), format: :js } }
-      let!(:answer_body) { answer.body }
-
-      it 'does not change answer' do
-        patch :update, params: { id: answer, answer: attributes_for(:answer, :invalid), format: :js }
-        answer.reload
-
-        expect(answer.body).to eq answer_body
-      end
-      it 'renders update template' do
-        patch :update, params: { id: answer, answer: attributes_for(:answer, :invalid), format: :js }
-
-        expect(response).to render_template :update
-      end
+    it_behaves_like 'update resource in controller' do
+      let(:resource) { answer }
+      let(:resource_name) { resource.class.name.underscore }
+      let(:resource_attributes) { %i[body] }
+      let(:resource_params) { { body: 'new body' } }
     end
   end
 

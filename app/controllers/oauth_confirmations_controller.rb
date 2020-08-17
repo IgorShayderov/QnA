@@ -18,7 +18,7 @@ class OauthConfirmationsController < Devise::ConfirmationsController
 
   private
 
-  def after_confirmation_path_for(resource_name, user)
+  def after_confirmation_path_for(_resource_name, user)
     user.authorizations.create(provider: session['devise.oauth_provider'], uid: session['devise.oauth_uid'])
     signed_in_root_path(user)
   end
