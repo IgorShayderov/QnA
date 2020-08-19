@@ -6,9 +6,7 @@ document.addEventListener('turbolinks:load', function (e) {
       const gist_id = truncateGistLink(gist.href);
 
     fetch(`https://api.github.com/gists/${gist_id}`)
-    .then((data) => {
-      return data.json();
-    })
+    .then((data) => data.json())
     .then((data) => {
       if (Object.keys(data.files).length) {
         const gistBlock = gist.parentElement;
