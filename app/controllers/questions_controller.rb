@@ -15,6 +15,7 @@ class QuestionsController < ApplicationController
   def show
     authorize! :show, Question
     @answer = @question.answers.new
+    @subscription = @question.subscriptions.where(user_id: current_user.id).first
     gon.push({ question_id: @question.id,
                user_id: user_signed_in? ? current_user.id : 0 })
   end

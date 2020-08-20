@@ -73,6 +73,9 @@
                     method: :delete,
                     data:  { confirm: 'Are you sure?' }
 
+      - if can?(:create, Subscription)
+        = render 'subscription'
+
 .answer-errors
   = render 'shared/errors', resource: @answer
 
