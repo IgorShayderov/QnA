@@ -11,6 +11,7 @@ class AnswersController < ApplicationController
   def create
     authorize! :create, Answer
     @answer = @question.answers.create(answer_params.merge(author: current_user))
+    QuestionUpdateJob.perform_later(@answer) if @answer.persisted?
   end
 
   def update

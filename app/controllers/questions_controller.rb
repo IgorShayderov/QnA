@@ -15,7 +15,7 @@ class QuestionsController < ApplicationController
   def show
     authorize! :show, Question
     @answer = @question.answers.new
-    @subscription = @question.subscriptions.where(user_id: current_user.id).first
+    @subscription = @question.subscriptions.find_by(user_id: current_user&.id)
     gon.push({ question_id: @question.id,
                user_id: user_signed_in? ? current_user.id : 0 })
   end
@@ -33,7 +33,8 @@ class QuestionsController < ApplicationController
     @question = current_user.questions.new(question_params)
 
     if @question.save
-      redirect_to @question, notice: 'Your question successfully created'
+      @question.subscriptions.create!(user: @question.author)
+      redirect_to @question, notice: 'Your question has been successfully created'
     else
       render :new
     end

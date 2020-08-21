@@ -5,6 +5,7 @@ class Question < ApplicationRecord
   include Commentable
 
   has_many :subscriptions, dependent: :destroy
+  has_many :subscribers, through: :subscriptions, source: :user
   has_many :answers, dependent: :destroy
   has_many :links, dependent: :destroy, as: :linkable
   has_one :reward, dependent: :destroy
