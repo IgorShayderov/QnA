@@ -2,7 +2,7 @@
 
 shared_examples_for 'resource comments' do
   let(:comment) { comments.first }
-  let(:comment_response) { resource_response['comments'].last }
+  let(:comment_response) { resource_response['comments'].first }
 
   it 'returns list of comments' do
     expect(resource_response['comments'].size).to eq comments.size
@@ -17,7 +17,7 @@ end
 
 shared_examples_for 'resource votes' do
   let(:vote) { votes.first }
-  let(:vote_response) { resource_response['votes'].last }
+  let(:vote_response) { resource_response['votes'].first }
 
   it 'returns list of votes' do
     expect(resource_response['votes'].size).to eq votes.size
@@ -32,7 +32,7 @@ end
 
 shared_examples_for 'resource links' do
   let(:link) { links.first }
-  let(:link_response) { resource_response['links'].last }
+  let(:link_response) { resource_response['links'].first }
 
   it 'returns list of links' do
     expect(resource_response['links'].size).to eq links.size

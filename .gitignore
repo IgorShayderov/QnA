@@ -41,3 +41,7 @@ yarn-debug.log*
 
 # local options
 /.idea
+
+# Sphinx
+/config/*.sphinx.confg
+/db/sphinx
