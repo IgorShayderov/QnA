@@ -16,6 +16,10 @@ class Answer < ApplicationRecord
 
   scope :sorted_answers, ->(question) { where(question: question).order(best: :desc, created_at: :asc) }
 
+  ThinkingSphinx::Callbacks.append(
+    self, behaviours: [:sql]
+  )
+
   def make_best
     return if best?
 

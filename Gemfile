@@ -63,7 +63,7 @@ gem 'sinatra', require: false
 # for task planner
 gem 'whenever', require: false
 # sphinx
-gem 'mysql2'
+gem 'mysql2', '~> 0.4.10'
 gem 'thinking-sphinx'
 
 group :development, :test do

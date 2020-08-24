@@ -5,4 +5,8 @@ class Comment < ApplicationRecord
   belongs_to :commentable, polymorphic: true
 
   validates :body, presence: true
+
+  ThinkingSphinx::Callbacks.append(
+    self, behaviours: [:sql]
+  )
 end

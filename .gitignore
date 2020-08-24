@@ -43,5 +43,5 @@ yarn-debug.log*
 /.idea
 
 # Sphinx
-/config/*.sphinx.confg
-/db/sphinx
+config/*.sphinx.conf
+db/sphinx

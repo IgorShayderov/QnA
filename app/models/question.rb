@@ -17,4 +17,8 @@ class Question < ApplicationRecord
   accepts_nested_attributes_for :reward, reject_if: :all_blank
 
   validates :title, :body, presence: true
+
+  ThinkingSphinx::Callbacks.append(
+    self, behaviours: [:sql]
+  )
 end
