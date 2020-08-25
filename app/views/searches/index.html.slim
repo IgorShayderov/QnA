@@ -1,3 +1,10 @@
 h3.text-center Search results
 
 .search-results
+  - if @result.empty?
+    p No result
+  - else
+    - @result.each_with_index do |record, index|
+      = p "Record # #{index}"
+      .record.ml-4
+        = render partial: record.class.name.downcase, locals: { resource: record }

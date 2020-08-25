@@ -2,16 +2,19 @@ class SearchesController < ApplicationController
   skip_authorization_check
 
   def index
-    p '11111'
-    p params
-    p params[:context]
-    p params[:option]
+    search_base = option == "global" ? ThinkingSphinx : option.capitalize.constantize
 
+    @result = search_base.search context
   end
 
   private
 
-  # def search_params
-  #   params.require()
-  # end
+  def option
+    params[:option]
+  end
+
+  def context
+    params[:context]
+  end
+
 end
