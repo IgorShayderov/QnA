@@ -16,7 +16,6 @@ export default function(answer, links, files) {
     $($answerNode).append("<a class='vote-for vote-for-answer'></a>");
     $($answerNode).append("<a class='unvote unvote-answer'></a>");
     $($answerNode).append("<a class='vote-against vote-against-answer'></a>");
-    // как вложить что-то внутрь тега <a>?
   }
 
   if (links.length) {
@@ -29,14 +28,17 @@ export default function(answer, links, files) {
     $($answerContent).append($linksNode);
   }
   // тут ссылки на файлы
-  console.log(files.length);
+  console.log(files.length, 'files length');
   if (files.length) {
     const $filesNode = $("<div class='answer-files'></div>");
+    console.log(files, 'files');
 
     files.forEach((file) => {
+      console.log(file, 'file');
+
       const $answerFile = $(`<p class='answer-file' data-file='${file.id}'></p>`);
 
-      $($answerFile).append(`<a href='/rails/active_storage/blobs/hz/${file.name}">${file.name}</a>`);
+      $($answerFile).append(`<a href="${file.url}">${file.name}</a>`);
       $($answerFile).append(`<a data-confirm="Are you sure?" class="ml-1" data-remote="true" rel="nofollow" data-method="delete" href="/attachments/${file.id}">(Delete)</a>`);
 
       $($filesNode).append($answerFile);

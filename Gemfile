@@ -97,6 +97,7 @@ group :test do
   # cloud storage
   gem 'aws-sdk-s3', require: false
   gem 'rack-cors'
+  gem 'database_cleaner-active_record'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
