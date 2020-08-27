@@ -15,10 +15,10 @@ let!(:question) { create(:question, body: 'extraterrestial') }
         ThinkingSphinx::Test.run do
           fill_in 'context', with: 'extraterrestial'
           click_button 'Search'
-        end
 
-        expect(page).to have_content 'Question'
-        expect(page).to have_content 'extraterrestial'
+          expect(page).to have_content 'Question'
+          expect(page).to have_content 'extraterrestial'
+        end
       end
 
       it 'via question search' do
@@ -28,10 +28,10 @@ let!(:question) { create(:question, body: 'extraterrestial') }
           fill_in 'context', with: 'extraterrestial'
           select 'Questions', from: 'option'
           click_button 'Search'
-        end
 
-        expect(page).to have_content 'Question'
-        expect(page).to have_content 'extraterrestial'
+          expect(page).to have_content 'Question'
+          expect(page).to have_content 'extraterrestial'
+        end
       end
     end
   
@@ -41,9 +41,9 @@ let!(:question) { create(:question, body: 'extraterrestial') }
       ThinkingSphinx::Test.run do
         fill_in 'context', with: 'sophisticated'
         click_button 'Search'
-      end
   
-      expect(page).to_not have_content 'sophisticated'
+        expect(page).to_not have_content 'sophisticated'
+      end
     end
   
   end

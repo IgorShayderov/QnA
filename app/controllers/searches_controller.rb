@@ -14,7 +14,7 @@ class SearchesController < ApplicationController
   end
 
   def context
-    params[:context]
+    ThinkingSphinx::Query.escape(params[:context])
   end
 
 end
