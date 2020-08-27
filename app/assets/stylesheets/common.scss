@@ -30,3 +30,9 @@
     margin-bottom: 0;
   }
 }
+
+.main-header {
+  * {
+    flex-basis: 33.3%;
+  }
+}

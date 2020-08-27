@@ -50,6 +50,7 @@ class AnswersController < ApplicationController
                                    answer: @answer,
                                    links: @answer.links,
                                    files: @answer.files.to_a
+                                   .map { |file| { id: file.id, url: rails_blob_path(file), name: file.blob.filename } }
                                  })
   end
 end

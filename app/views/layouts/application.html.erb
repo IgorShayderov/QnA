@@ -12,10 +12,14 @@
   </head>
 
   <body>
-    <header>
+    <header class="main-header d-flex my-2">
       <%= render 'shared/nav' %>
-      <%= render 'shared/flash' %>
+      <%= render 'shared/search' %>
+      <div class="spacer"></div>
     </header>
+
+    <%= render 'shared/flash' %>
+
     <main class="ml-2">
       <%= yield %>
     </main>

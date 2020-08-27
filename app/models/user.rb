@@ -12,6 +12,10 @@ class User < ApplicationRecord
   has_many :authorizations, dependent: :destroy
   has_many :subscriptions, dependent: :destroy
 
+  ThinkingSphinx::Callbacks.append(
+    self, behaviours: [:sql]
+  )
+
   def author_of?(element)
     id == element.user_id
   end

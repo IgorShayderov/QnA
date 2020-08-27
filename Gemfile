@@ -62,6 +62,9 @@ gem 'sidekiq'
 gem 'sinatra', require: false
 # for task planner
 gem 'whenever', require: false
+# sphinx
+gem 'mysql2', '~> 0.4.10'
+gem 'thinking-sphinx'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -94,6 +97,7 @@ group :test do
   # cloud storage
   gem 'aws-sdk-s3', require: false
   gem 'rack-cors'
+  gem 'database_cleaner-active_record'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

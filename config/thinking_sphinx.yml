@@ -1,0 +1,6 @@
+development:
+  mysql41: 9312
+  mem_limit: 128M
+test:
+  mysql41: 9307
+  mem_limit: 128M
