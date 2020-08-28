@@ -65,6 +65,7 @@ gem 'whenever', require: false
 # sphinx
 gem 'mysql2', '~> 0.4.10'
 gem 'thinking-sphinx'
+gem 'rack-cors'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -102,7 +103,6 @@ group :test do
   gem 'webdrivers'
   # cloud storage
   gem 'aws-sdk-s3', require: false
-  gem 'rack-cors'
   gem 'database_cleaner-active_record'
 end
 
