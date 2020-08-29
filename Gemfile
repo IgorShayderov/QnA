@@ -57,7 +57,7 @@ gem 'active_model_serializers', '~> 0.10'
 # JSON serializer
 gem 'oj'
 # active-job adapter
-gem 'sidekiq'
+gem 'sidekiq', '< 6.0.0'
 # for sidekiq detailed log
 gem 'sinatra', require: false
 # for task planner
@@ -89,6 +89,7 @@ group :development do
   gem 'capistrano-rails', require: false
   gem 'capistrano-rvm', require: false
   gem 'capistrano-passenger', require: false
+  gem 'capistrano-sidekiq', require: false
 end
 
 group :test do
