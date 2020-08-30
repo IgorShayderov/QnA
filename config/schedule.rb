@@ -14,7 +14,7 @@ set :chronic_options, hours24: true
 #   rake "some:great:rake:task"
 # end
 #
-every 1.day at '9:00' do
+every 1.day, at: '9:00' do
   runner 'DailyDigestJob.perform_now'
 end
 
