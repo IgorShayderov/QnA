@@ -2,7 +2,20 @@
 
 require 'rails_helper'
 
+module SphinxHelpers
+  def index
+    ThinkingSphinx::Test.index
+    # Wait for Sphinx to finish loading in the new index files.
+    sleep 0.25 until index_finished?
+  end
+
+  def index_finished?
+    Dir[Rails.root.join(ThinkingSphinx::Test.config.indices_location, '*.{new,tmp}*')].empty?
+  end
+end
+
 RSpec.configure do |config|
+  config.include SphinxHelpers, type: :feature
   config.use_transactional_fixtures = false
 
   # DatabaseCleaner settings
@@ -19,12 +32,9 @@ RSpec.configure do |config|
   end
 
   config.before(:each, sphinx: true) do
-    p 'sphinx before'
-    p config.use_transactional_fixtures
-
     DatabaseCleaner.strategy = :truncation
     # Index data when running an acceptance spec.
-    ThinkingSphinx::Test.index
+    index
   end
 
   config.before(:each) do

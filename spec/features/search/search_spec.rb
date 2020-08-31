@@ -7,7 +7,7 @@ feature 'User can search records through search bar', "
 " do
 let!(:question) { create(:question, body: 'extraterrestial') }
 
-  describe 'search', sphinx: true, js: true do
+  describe 'search', sphinx: true do
     context 'existing record' do
       it 'via global search' do
         visit root_path
@@ -23,7 +23,7 @@ let!(:question) { create(:question, body: 'extraterrestial') }
 
       it 'via question search' do
         visit root_path
-        
+
         ThinkingSphinx::Test.run do
           fill_in 'context', with: 'extraterrestial'
           select 'Questions', from: 'option'

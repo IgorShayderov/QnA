@@ -5,7 +5,7 @@ require 'sphinx_helper'
 RSpec.describe SearchesController, type: :controller do
 
 
-  describe 'GET #index', js:true, sphinx: true do
+  describe 'GET #index' do
     before { get :index, params: { option: 'question', context: 'text' }}
 
     it 'renders index view' do
