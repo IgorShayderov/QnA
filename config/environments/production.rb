@@ -62,6 +62,7 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "qna_production"
 
+  config.action_mailer.perform_deliveries = true
   config.action_mailer.perform_caching = false
   config.action_mailer.default_url_options = { host: '79.143.30.92' }
   config.action_mailer.delivery_method = :smtp
