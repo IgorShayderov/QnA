@@ -1,87 +1,87 @@
 .question-errors
   = render 'shared/errors', resource: @question
+- cache @question do
+  .question
+    = render 'shared/vote.html.slim', resource: @question, cached: true
 
-.question
-  = render 'shared/vote', resource: @question
+    .question-content
+      h4.question-title = @question.title
+      p.question-body = @question.body
 
-  .question-content
-    h4.question-title = @question.title
-    p.question-body = @question.body
+      - if @question.files.attached?
+        .question-files
+          - @question.files.each do |file|
+            p.question-file data-file=file.id
+              = link_to file.filename.to_s, url_for(file)
 
-    - if @question.files.attached?
-      .question-files
-        - @question.files.each do |file|
-          p.question-file data-file=file.id
-            = link_to file.filename.to_s, url_for(file)
+              - if can?(:destroy, @question)
+                = link_to '(Delete)',
+                            attachment_path(id: file.id),
+                            method: :delete,
+                            remote: true,
+                            data: { confirm: 'Are you sure?' },
+                            class: 'ml-1'
 
-            - if can?(:destroy, @question)
-              = link_to '(Delete)',
-                          attachment_path(id: file.id),
-                          method: :delete,
-                          remote: true,
-                          data: { confirm: 'Are you sure?' },
-                          class: 'ml-1'
+      .links
+        - @question.links.each do |link|
+          - if link.gist?
+            li = link_to link.name, link.url, class: 'gist'
+          - else
+            li = link_to link.name, link.url, data: { link: link.id }
 
-    .links
-      - @question.links.each do |link|
-        - if link.gist?
-          li = link_to link.name, link.url, class: 'gist'
-        - else
-          li = link_to link.name, link.url, data: { link: link.id }
+      - if can?(:create, Comment)
+      = render 'shared/comments.html.slim', resource: @question, cached: true
 
-    - if can?(:create, Comment)
-    = render 'shared/comments', resource: @question
+      - if can?(:update, @question)
+        hr
+        = link_to 'Edit question', '#', class: 'edit-question-link'
 
-    - if can?(:update, @question)
-      hr
-      = link_to 'Edit question', '#', class: 'edit-question-link'
-
-      = form_with model: @question, class: 'edit-question-form hidden' do |form|
-        = form.label :title, 'Edit question title:'
-        br
-        = form.text_field :title, class: 'question-title'
-        br
-        = form.label :body, 'Edit question text:'
-        br
-        = form.text_area :body, cols: 40, class: 'question-body'
-        br
-        = form.label :files
-        br
-        = form.file_field :files, multiple: true, direct_upload: true
-        br
-
-        p Links:
-        .links
-          = form.fields_for :links do |link|
-            = link.label :name, 'Link name:'
-            br
-            = link.text_field :name
-            br
-            = link.label :url, 'Link url:'
-            br
-            = link.text_field :url
-            br
-            = link.label :_destroy, 'Delete link?', class: 'mr-2'
-            = link.check_box :_destroy, class: 'destroy_link'
-            br
-          = link_to_add_association 'Add link', form, :links, partial: 'shared/link_fields'
+        = form_with model: @question, class: 'edit-question-form hidden' do |form|
+          = form.label :title, 'Edit question title:'
           br
-        = form.submit 'Edit the question', class: 'btn btn-primary mt-2'
-      br
-      = link_to 'Delete question',
-                    question_path(@question),
-                    method: :delete,
-                    data:  { confirm: 'Are you sure?' }
+          = form.text_field :title, class: 'question-title'
+          br
+          = form.label :body, 'Edit question text:'
+          br
+          = form.text_area :body, cols: 40, class: 'question-body'
+          br
+          = form.label :files
+          br
+          = form.file_field :files, multiple: true, direct_upload: true
+          br
 
-      - if can?(:create, Subscription)
-        = render 'subscription'
+          p Links:
+          .links
+            = form.fields_for :links do |link|
+              = link.label :name, 'Link name:'
+              br
+              = link.text_field :name
+              br
+              = link.label :url, 'Link url:'
+              br
+              = link.text_field :url
+              br
+              = link.label :_destroy, 'Delete link?', class: 'mr-2'
+              = link.check_box :_destroy, class: 'destroy_link'
+              br
+            = link_to_add_association 'Add link', form, :links, partial: 'shared/link_fields.html.slim', cached: true
+            br
+          = form.submit 'Edit the question', class: 'btn btn-primary mt-2'
+        br
+        = link_to 'Delete question',
+                      question_path(@question),
+                      method: :delete,
+                      data:  { confirm: 'Are you sure?' }
+
+        - if can?(:create, Subscription)
+          = render 'subscription.html.slim', cached: true
 
 .answer-errors
   = render 'shared/errors', resource: @answer
 
 ul.answers
-  = render Answer.with_attached_files.sorted_answers(@question)
+  = render partial: 'answers/answer.html.slim', collection: Answer.with_attached_files.sorted_answers(@question), cached: true
 
 - if can?(:create, Answer)
   .new-answer
-    = render 'answers/form'
+    = render 'answers/form.html.slim', cached: true

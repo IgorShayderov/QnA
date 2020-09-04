@@ -3,7 +3,7 @@
 class Link < ApplicationRecord
   GIST_URL = %r{^(https?://)?(www\.)?gist\.github\.com/\w+/\w+$}.freeze
 
-  belongs_to :linkable, polymorphic: true
+  belongs_to :linkable, polymorphic: true, touch: true
 
   validates :name, presence: true
   validates :url, format: URI::DEFAULT_PARSER.make_regexp(%w[http https])
