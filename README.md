@@ -6,7 +6,7 @@ Inside every question or answer you can put link or upload file. There are optio
 If you create new question or answer, other users can see them immediately, this feature provided by Action Cable.
 Every update to existing question or answer performed through AJAX.
 
-QnA using RSpec and Capybara for tests, there are about 300 tests.
+QnA using RSpec and Capybara for tests.
 
 QnA using Sphinx to perform search through question/answers/comments/users, Sidekiq for background jobs and CanCanCan for authorization.
 
