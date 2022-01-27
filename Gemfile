@@ -57,7 +57,7 @@ gem 'active_model_serializers', '~> 0.10'
 # JSON serializer
 gem 'oj'
 # active-job adapter
-gem 'sidekiq', '< 6.0.0'
+gem 'sidekiq', '< 7.0.0'
 # for sidekiq detailed log
 gem 'sinatra', require: false
 # for task planner
